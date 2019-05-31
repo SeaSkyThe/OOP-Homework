@@ -23,10 +23,10 @@ class Livro:
     def setEmprestado(self, emprestado):   #argumento True or False
         self.__emprestado = emprestado
 
-    def emprestar(self){
+    def emprestar(self):
         self.__setEmprestado(True)
 
-    def devolver(self){
+    def devolver(self):
         self.__setEmprestado(False)
 
     def getNome(self):

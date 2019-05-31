@@ -1,6 +1,10 @@
-from src.modelo.Emprestimo import *
-from src.modelo.Livro import *
-from src.modelo.Usuario import *
+import sys
+del sys.path[0]
+sys.path.insert(0, '..')
+
+from modelo.Emprestimo import *
+from modelo.Livro import *
+from modelo.Usuario import *
 
 
 class Database():
@@ -16,7 +20,6 @@ class Database():
             instancia = Database()
 
         return instancia
-
 
     def addUsuario(self, usuario): #parametro do tipo Usuario(Aluno ou Professor)
         self.__usuario.append(usuario)

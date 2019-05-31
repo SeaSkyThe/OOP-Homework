@@ -1,8 +1,15 @@
-from Config import *
-from src.dados.database import *
-from Aluno import *
-from Professor import *
-from Livro import *
+import sys               ##Redefinindo PATH para a pasta src, para melhorar os imports
+del sys.path[0]
+sys.path.insert(0, '..')
+
+
+from controlador import Controlador
+
+from modelo.Config import *
+from modelo.Aluno import *
+from modelo.Professor import *
+from modelo.Livro import *
+#verificar import
 
 class Biblioteca:
     def __init__(self):

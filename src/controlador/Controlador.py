@@ -1,7 +1,12 @@
-from src.modelo import *
+import sys
+del sys.path[0]
+sys.path.insert(0, '..')
 
 
-#Rever a questão de instancia do controlador, se precisa instanciar ou nao
+from modelo import *
+
+
+#Rever a questão de instancia do controlador
 class Controlador:
     def __init__(self):
         self.__biblio = Biblioteca()
@@ -16,4 +21,4 @@ class Controlador:
         biblio.addProfessor(codUsuario, nome, titulacao)
 
     def addLivro(codLivro, nome, ano):
-        biblio.addLivro(codLivro, nome, ano)
+        biblio.addLivro(codLivro, nome, titulacao)

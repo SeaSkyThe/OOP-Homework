@@ -1,6 +1,10 @@
-from Usuario import *
-from Aluno import *
-from Professor import *
+import sys
+del sys.path[0]
+sys.path.insert(0, '..')
+
+from modelo.Usuario import *
+from modelo.Aluno import *
+from modelo.Professor import *
 
 import datetime
 #todo: rever questao de datas

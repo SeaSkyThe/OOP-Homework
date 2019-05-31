@@ -1,4 +1,8 @@
-from Usuario import *
+import sys
+del sys.path[0]
+sys.path.insert(0, '..')
+
+from modelo.Usuario import *
 
 class Aluno(Usuario):
     def __init__(self, codUsuario, nome, diasEmprestimo, curso, ano):

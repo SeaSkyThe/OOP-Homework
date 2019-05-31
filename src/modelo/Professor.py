@@ -1,4 +1,8 @@
-from Usuario import *
+import sys
+del sys.path[0]
+sys.path.insert(0, '..')
+
+from modelo.Usuario import *
 
 
 class Professor(Usuario):
