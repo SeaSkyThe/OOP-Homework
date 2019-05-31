@@ -1,4 +1,4 @@
-from usuario import *
+from Usuario import *
 
 
 class Professor(Usuario):

@@ -17,10 +17,10 @@ class Livro:
     def setCodLivro(self, codLivro):
         self.__codLivro = codLivro
 
-    def estaEmprestado(self):
+    def estaEmprestado(self):     #retorna True or False
         return self.__emprestado
 
-    def setEmprestado(self, emprestado):
+    def setEmprestado(self, emprestado):   #argumento True or False
         self.__emprestado = emprestado
 
     def emprestar(self){

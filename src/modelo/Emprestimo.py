@@ -1,4 +1,7 @@
 from Usuario import *
+from Aluno import *
+from Professor import *
+
 import datetime
 #todo: rever questao de datas
 class Emprestimo:
@@ -8,7 +11,12 @@ class Emprestimo:
         self.__codUsuario = usuario.getCodUsuario()
         self.__itens = [] #Lista de livros
         self.__dataEmprestimo = datetime.date.today() #Pegando a data atual
-        self.__dataDevolucao = datetime.date.fromordinal(self.__dataEmprestimo.toordinal()+15) #Data de devolução é 15 dias apos o emprestimo
+
+        #tratar data de devoulucao
+        if(isinstance(usuario, Aluno)):
+            self.__dataDevolucao = datetime.date.fromordinal(self.__dataEmprestimo.toordinal()+10) #Data de devolução é 10 dias apos o emprestimo
+        else:
+            self.__dataDevolucao = datetime.date.fromordinal(self.__dataEmprestimo.toordinal()+15) #Data de devolução é 15 dias apos o emprestimo
         #Falta uma variavel, tirar duvida
 
 

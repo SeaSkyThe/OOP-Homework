@@ -12,11 +12,8 @@ class Item:
         self.__dataDevolucao = None
 
 
-    def getDataDevolucao(self):
+    def getDataDevolucao(self):     #retorna um datetime.date
         return self.__dataDevolucao
 
     def setDataDevolucao(self, dataDevolucao):
         self.__dataDevolucao = dataDevolucao
-
-
-    
