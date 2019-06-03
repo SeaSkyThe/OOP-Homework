@@ -14,15 +14,19 @@ class Database():
         self.__emprestimos = [] #array que guarda objetos do tipo Emprestimo
         self.__livros = [] #array que guarda objetos do tipo Livro
 
+
     @staticmethod
     def getInstance():   #nao tem "self" porque o "self" se refere ao objeto, e o metodo estatico será chamado sem a necessidade de um objeto criado
-        if(instacia == None):
-            instancia = Database()
+        if(Database.instancia == None):
+            Database.instancia = Database()
 
-        return instancia
+        return Database.instancia
 
     def addUsuario(self, usuario): #parametro do tipo Usuario(Aluno ou Professor)
-        self.__usuario.append(usuario)
+        self.__usuarios.append(usuario)
 
     def addLivro(self, livro): #parametro do tipo Livro
-        self.__livro.append(livro)
+        self.__livros.append(livro)
+
+    def getNumEmprestimos(self):
+        return len(self.__emprestimos)

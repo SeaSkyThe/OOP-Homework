@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>450</width>
+    <height>310</height>
+   </rect>
+  </property>
+  <property name="focusPolicy">
+   <enum>Qt::StrongFocus</enum>
+  </property>
+  <property name="windowTitle">
+   <string>Sistema da Biblioteca</string>
+  </property>
+  <widget class="QWidget" name="principalUI">
+   <widget class="QLabel" name="welcomeText">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>30</y>
+      <width>211</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Bem Vindo, Bibliotecário!!</string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::AutoText</enum>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="startTable">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>60</y>
+      <width>281</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>500</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="sizeAdjustPolicy">
+     <enum>QAbstractScrollArea::AdjustIgnored</enum>
+    </property>
+    <property name="alternatingRowColors">
+     <bool>true</bool>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::NoSelection</enum>
+    </property>
+    <property name="gridStyle">
+     <enum>Qt::SolidLine</enum>
+    </property>
+    <property name="sortingEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="wordWrap">
+     <bool>false</bool>
+    </property>
+    <property name="cornerButtonEnabled">
+     <bool>true</bool>
+    </property>
+    <property name="columnCount">
+     <number>2</number>
+    </property>
+    <attribute name="horizontalHeaderVisible">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="horizontalHeaderCascadingSectionResizes">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="horizontalHeaderDefaultSectionSize">
+     <number>120</number>
+    </attribute>
+    <attribute name="horizontalHeaderHighlightSections">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="horizontalHeaderMinimumSectionSize">
+     <number>15</number>
+    </attribute>
+    <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="horizontalHeaderStretchLastSection">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderVisible">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="verticalHeaderCascadingSectionResizes">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderStretchLastSection">
+     <bool>true</bool>
+    </attribute>
+    <row>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="font">
+      <font>
+       <kerning>false</kerning>
+      </font>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="font">
+      <font>
+       <kerning>false</kerning>
+      </font>
+     </property>
+    </row>
+    <column>
+     <property name="text">
+      <string>Resumo</string>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Qtd</string>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <item row="0" column="0">
+     <property name="text">
+      <string>Livros Emprestados</string>
+     </property>
+    </item>
+    <item row="0" column="1">
+     <property name="text">
+      <string/>
+     </property>
+    </item>
+    <item row="1" column="0">
+     <property name="text">
+      <string>Livros em atraso</string>
+     </property>
+    </item>
+    <item row="1" column="1">
+     <property name="text">
+      <string/>
+     </property>
+    </item>
+   </widget>
+   <widget class="QPushButton" name="buttonEmprestimo">
+    <property name="geometry">
+     <rect>
+      <x>292</x>
+      <y>200</y>
+      <width>131</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Novo empréstimo</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>450</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="defaultUp">
+    <bool>false</bool>
+   </property>
+   <property name="nativeMenuBar">
+    <bool>false</bool>
+   </property>
+   <widget class="QMenu" name="menuArquivo">
+    <property name="title">
+     <string>Arquivo</string>
+    </property>
+    <property name="toolTipsVisible">
+     <bool>false</bool>
+    </property>
+    <addaction name="actionSalvar_Dados"/>
+    <addaction name="actionCarregar_Dados"/>
+    <addaction name="separator"/>
+    <addaction name="actionPreferencias"/>
+    <addaction name="separator"/>
+    <addaction name="actionSair"/>
+   </widget>
+   <widget class="QMenu" name="menuUsuarios">
+    <property name="title">
+     <string>Usuários</string>
+    </property>
+    <addaction name="actionNovo_Aluno"/>
+    <addaction name="actionNovo_Professor"/>
+    <addaction name="separator"/>
+    <addaction name="actionVer_Usuarios"/>
+   </widget>
+   <widget class="QMenu" name="menuLivros">
+    <property name="title">
+     <string>Livros</string>
+    </property>
+    <addaction name="actionNovo_Livro"/>
+    <addaction name="actionVer_Livros"/>
+   </widget>
+   <widget class="QMenu" name="menuRelatorios">
+    <property name="title">
+     <string>Relatórios</string>
+    </property>
+    <addaction name="actionTodos_os_usuarios"/>
+    <addaction name="actionTodos_os_alunos"/>
+    <addaction name="actionTodos_os_professores"/>
+    <addaction name="actionTodos_os_livros"/>
+    <addaction name="separator"/>
+    <addaction name="actionLivros_disponiveis"/>
+    <addaction name="actionLivros_emprestados"/>
+    <addaction name="separator"/>
+    <addaction name="actionHistorico_de_usuario"/>
+    <addaction name="actionEmprestimos_de_um_usuario"/>
+    <addaction name="separator"/>
+    <addaction name="actionUsuarios_com_atrasos"/>
+    <addaction name="actionAtrasos"/>
+   </widget>
+   <addaction name="menuArquivo"/>
+   <addaction name="menuUsuarios"/>
+   <addaction name="menuLivros"/>
+   <addaction name="menuRelatorios"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionSalvar_Dados">
+   <property name="text">
+    <string>Salvar Dados</string>
+   </property>
+  </action>
+  <action name="actionCarregar_Dados">
+   <property name="text">
+    <string>Carregar Dados</string>
+   </property>
+  </action>
+  <action name="actionPreferencias">
+   <property name="text">
+    <string>Preferencias</string>
+   </property>
+  </action>
+  <action name="actionSair">
+   <property name="text">
+    <string>Sair</string>
+   </property>
+  </action>
+  <action name="actionNovo_Aluno">
+   <property name="text">
+    <string>Novo Aluno</string>
+   </property>
+  </action>
+  <action name="actionNovo_Professor">
+   <property name="text">
+    <string>Novo Professor</string>
+   </property>
+  </action>
+  <action name="actionVer_Usuarios">
+   <property name="text">
+    <string>Ver Usuarios</string>
+   </property>
+  </action>
+  <action name="actionNovo_Livro">
+   <property name="text">
+    <string>Novo Livro</string>
+   </property>
+  </action>
+  <action name="actionVer_Livros">
+   <property name="text">
+    <string>Ver Livros</string>
+   </property>
+  </action>
+  <action name="actionTodos_os_usuarios">
+   <property name="text">
+    <string>Todos os Usuarios</string>
+   </property>
+  </action>
+  <action name="actionTodos_os_alunos">
+   <property name="text">
+    <string>Todos os Alunos</string>
+   </property>
+  </action>
+  <action name="actionTodos_os_professores">
+   <property name="text">
+    <string>Todos os Professores</string>
+   </property>
+  </action>
+  <action name="actionHistorico_de_usuario">
+   <property name="text">
+    <string>Historico de usuario</string>
+   </property>
+  </action>
+  <action name="actionEmprestimos_de_um_usuario">
+   <property name="text">
+    <string>Emprestimos de um usuario</string>
+   </property>
+  </action>
+  <action name="actionTodos_os_livros">
+   <property name="text">
+    <string>Todos os livros</string>
+   </property>
+  </action>
+  <action name="actionLivros_disponiveis">
+   <property name="text">
+    <string>Livros disponiveis</string>
+   </property>
+  </action>
+  <action name="actionLivros_emprestados">
+   <property name="text">
+    <string>Livros emprestados</string>
+   </property>
+  </action>
+  <action name="actionAtrasos">
+   <property name="text">
+    <string>Atrasos</string>
+   </property>
+  </action>
+  <action name="actionUsuarios_com_atrasos">
+   <property name="text">
+    <string>Usuarios com atrasos</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

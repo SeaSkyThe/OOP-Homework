@@ -3,13 +3,14 @@ del sys.path[0]
 sys.path.insert(0, '..')
 
 
-from controlador import Controlador
+from controlador.Controlador import *
 
 from modelo.Config import *
 from modelo.Aluno import *
 from modelo.Professor import *
 from modelo.Livro import *
-#verificar import
+
+from dados.Database import *
 
 class Biblioteca:
     def __init__(self):
@@ -23,13 +24,16 @@ class Biblioteca:
         self.__configuracoes = configuracoes
 
     def addAluno(self, codUsuario, nome, curso, ano):
-        aluno = Aluno(codUsuario, nome, config.getDiasAluno(), curso, ano)
-        db.addUsuario(aluno)
+        aluno = Aluno(codUsuario, nome, self.__configuracoes.getDiasAluno(), curso, ano)
+        self.__db.addUsuario(aluno)
 
     def addProfessor(self, codUsuario, nome, titulacao):
-        professor = Professor(codUsuario, nome, config.getDiasProfessor(), titulacao)
-        db.addUsuario(professor)
+        professor = Professor(codUsuario, nome, self.__configuracoes.getDiasProfessor(), titulacao)
+        self.__db.addUsuario(professor)
 
     def addLivro(self, codLivro, nome, ano):
         livro = Livro(codLivro, nome, ano)
-        db.addLivro(livro)
+        self.__db.addLivro(livro)
+
+    def getNumEmprestimos(self):
+        self.__db.getNumEmprestimos()

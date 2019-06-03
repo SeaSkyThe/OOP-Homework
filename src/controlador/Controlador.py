@@ -2,8 +2,7 @@ import sys
 del sys.path[0]
 sys.path.insert(0, '..')
 
-
-from modelo import *
+from modelo.Biblioteca import Biblioteca
 
 
 #Rever a questão de instancia do controlador
@@ -14,11 +13,14 @@ class Controlador:
     def getConfiguracoes():
         return self.__biblio.getConfiguracoes
 
-    def addAluno(codUsuario, nome, curso, ano):
-        biblio.addAluno(codUsuario, nome, curso, ano)
+    def addAluno(self, codUsuario, nome, curso, ano):
+        self.__biblio.addAluno(codUsuario, nome, curso, ano)
 
-    def addProfessor(codUsuario, nome, titulacao):
-        biblio.addProfessor(codUsuario, nome, titulacao)
+    def addProfessor(self, codUsuario, nome, titulacao):
+        self.__biblio.addProfessor(codUsuario, nome, titulacao)
 
-    def addLivro(codLivro, nome, ano):
-        biblio.addLivro(codLivro, nome, titulacao)
+    def addLivro(self, codLivro, nome, ano):
+        self.__biblio.addLivro(codLivro, nome, titulacao)
+
+    def getNumEmprestimos(self):
+        self.__biblio.getNumEmprestimos()
