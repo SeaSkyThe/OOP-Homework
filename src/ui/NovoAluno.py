@@ -17,6 +17,8 @@ class Ui_CadastroAluno(object):
         self.novoAlunoText.setGeometry(QtCore.QRect(30, 20, 211, 16))
         font = QtGui.QFont()
         font.setPointSize(18)
+        font.setBold(True)
+        font.setWeight(75)
         self.novoAlunoText.setFont(font)
         self.novoAlunoText.setTextFormat(QtCore.Qt.AutoText)
         self.novoAlunoText.setObjectName("novoAlunoText")

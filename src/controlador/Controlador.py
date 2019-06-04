@@ -20,7 +20,7 @@ class Controlador:
         self.__biblio.addProfessor(codUsuario, nome, titulacao)
 
     def addLivro(self, codLivro, nome, ano):
-        self.__biblio.addLivro(codLivro, nome, titulacao)
+        self.__biblio.addLivro(codLivro, nome, ano)
 
     def getNumEmprestimos(self):
         self.__biblio.getNumEmprestimos()

@@ -29,6 +29,7 @@ class Ui_MainWindow(object):
         self.startTable.setMaximumSize(QtCore.QSize(500, 16777215))
         self.startTable.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.startTable.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustIgnored)
+        self.startTable.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.startTable.setAlternatingRowColors(True)
         self.startTable.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.startTable.setGridStyle(QtCore.Qt.SolidLine)
@@ -80,12 +81,10 @@ class Ui_MainWindow(object):
         self.startTable.verticalHeader().setCascadingSectionResizes(False)
         self.startTable.verticalHeader().setSortIndicatorShown(False)
         self.startTable.verticalHeader().setStretchLastSection(True)
-
         self.buttonEmprestimo = QtWidgets.QPushButton(self.principalUI)
         self.buttonEmprestimo.setGeometry(QtCore.QRect(292, 200, 131, 32))
         self.buttonEmprestimo.setObjectName("buttonEmprestimo")
         MainWindow.setCentralWidget(self.principalUI)
-
         self.menuBar = QtWidgets.QMenuBar(MainWindow)
         self.menuBar.setEnabled(True)
         self.menuBar.setGeometry(QtCore.QRect(0, 0, 450, 22))
@@ -105,7 +104,6 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-
         self.actionSalvar_Dados = QtWidgets.QAction(MainWindow)
         self.actionSalvar_Dados.setObjectName("actionSalvar_Dados")
         self.actionCarregar_Dados = QtWidgets.QAction(MainWindow)
@@ -114,19 +112,16 @@ class Ui_MainWindow(object):
         self.actionPreferencias.setObjectName("actionPreferencias")
         self.actionSair = QtWidgets.QAction(MainWindow)
         self.actionSair.setObjectName("actionSair")
-
         self.actionNovo_Aluno = QtWidgets.QAction(MainWindow)
         self.actionNovo_Aluno.setObjectName("actionNovo_Aluno")
         self.actionNovo_Professor = QtWidgets.QAction(MainWindow)
         self.actionNovo_Professor.setObjectName("actionNovo_Professor")
         self.actionVer_Usuarios = QtWidgets.QAction(MainWindow)
         self.actionVer_Usuarios.setObjectName("actionVer_Usuarios")
-
         self.actionNovo_Livro = QtWidgets.QAction(MainWindow)
         self.actionNovo_Livro.setObjectName("actionNovo_Livro")
         self.actionVer_Livros = QtWidgets.QAction(MainWindow)
         self.actionVer_Livros.setObjectName("actionVer_Livros")
-
         self.actionTodos_os_usuarios = QtWidgets.QAction(MainWindow)
         self.actionTodos_os_usuarios.setObjectName("actionTodos_os_usuarios")
         self.actionTodos_os_alunos = QtWidgets.QAction(MainWindow)
@@ -147,7 +142,6 @@ class Ui_MainWindow(object):
         self.actionAtrasos.setObjectName("actionAtrasos")
         self.actionUsuarios_com_atrasos = QtWidgets.QAction(MainWindow)
         self.actionUsuarios_com_atrasos.setObjectName("actionUsuarios_com_atrasos")
-
         self.menuArquivo.addAction(self.actionSalvar_Dados)
         self.menuArquivo.addAction(self.actionCarregar_Dados)
         self.menuArquivo.addSeparator()
