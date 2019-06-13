@@ -28,13 +28,13 @@ class PrincipalWindow(QMainWindow):  #Main window
     #Quando selecionar a opção de menu (novo aluno)
     def on_NovoAluno_clicked(self):
         self.dialog = AlunoWindow()
-        #self.dialog.home()  isso ja é chamado na função AlunoWindow()
+        #self.dialog.home()  isso ja é chamado na função AlunoWindow() - colocar isso aqui tava dando duplo envio de sinal no botao
         print("Janela de Cadastro de Aluno aberta!")
 
     #Quando selecionar a opção de menu (novo professor)
     def on_NovoProfessor_clicked(self):
         self.dialog = ProfessorWindow()
-        #self.dialog.home() isso ja é chamado na função ProfessorWindow()
+        #self.dialog.home() isso ja é chamado na função ProfessorWindow() -  colocar isso aqui tava dando duplo envio de sinal no botao
         print("Janela de Cadastro de Professor aberta!")
 
     def on_NovoLivro_clicked(self):
@@ -139,6 +139,7 @@ class LivroWindow(QDialog):
     def home(self):
         self.ui.botaoEnviar.clicked.connect(self.cadastroLivro) #referencia o metodo, nao chame-o
         self.show()
+
 #Roda nossa UI
 def run():
     app = QApplication(sys.argv)
