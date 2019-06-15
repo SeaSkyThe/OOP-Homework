@@ -6,7 +6,10 @@ from principalUI import *
 from NovoAluno import *
 from NovoProfessor import *
 from NovoLivro import *
-
+from RelatorioUsuarios import *
+from RelatorioAlunos import *
+from RelatorioProfessores import *
+from RelatorioLivros import *
 
 del sys.path[0]
 sys.path.insert(0, '..')
@@ -41,6 +44,26 @@ class PrincipalWindow(QMainWindow):  #Main window
         self.dialog = LivroWindow()
         print("Janela de Cadastro de Livro aberta!")
 
+    #Quando selecionar opção de menu de relatorio
+    def on_TodosUsuarios_clicked(self):
+        self.dialog = RelatorioUsuarios()
+        print("Janela de Relatorio de Usuarios aberta!")
+
+    def on_TodosAlunos_clicked(self):
+        self.dialog = RelatorioAlunos()
+        print("Janela de Relatorio de Alunos aberta!")
+
+    def on_TodosProfessores_clicked(self):
+        self.dialog = RelatorioProfessores()
+        print("Janela de Relatorio de Professores aberta!")
+
+    def on_TodosLivros_clicked(self):
+        self.dialog = RelatorioLivros()
+        print("Janela de Relatorio de Livros aberta!")
+
+    def on_LivrosDisponiveis_clicked(self):
+        self.dialog = LivrosDisponiveis()
+        print("Janela de Relatorio de Livros Disponiveis aberta!")
 
     def home(self):
         self.ui.startTable.horizontalHeader().setSectionResizeMode(1) #stretched table
@@ -53,15 +76,20 @@ class PrincipalWindow(QMainWindow):  #Main window
         item.setData(0, 'Num Atrasos') #setData(Role, data) role = 0 é a displayRole, aqui sera adicionado o que deve ser apresentado na tabela
         self.ui.startTable.setItem(1, 1, item)
 
-        ##Apertando botões do menu de cadastro de Aluno e Professor
+        ##Apertando botões do menu de cadastro de Aluno e Professor e de livro
         self.ui.actionNovo_Aluno.triggered.connect(self.on_NovoAluno_clicked)    #Abre janela de cadastro de aluno
         self.ui.actionNovo_Professor.triggered.connect(self.on_NovoProfessor_clicked) #Abre a janela de cadastro de professor
-
-        ##Cadastro de livro
         self.ui.actionNovo_Livro.triggered.connect(self.on_NovoLivro_clicked) #Abre janela de cadastro de livro
+        ##Menus de relatorio
+        self.ui.actionTodos_os_usuarios.triggered.connect(self.on_TodosUsuarios_clicked)
+        self.ui.actionTodos_os_alunos.triggered.connect(self.on_TodosAlunos_clicked)
+        self.ui.actionTodos_os_professores.triggered.connect(self.on_TodosProfessores_clicked)
+        self.ui.actionTodos_os_livros.triggered.connect(self.on_TodosLivros_clicked)
         #mostrando interface
         self.show()
 
+
+######################################################### CADASTROS ####################################################################
 #Janela de cadastro de Aluno
 class AlunoWindow(QDialog):
     def __init__(self):
@@ -136,10 +164,72 @@ class LivroWindow(QDialog):
         #Janela de aviso
         self.popup = QtWidgets.QMessageBox.warning(self, 'Nice!', "Cadastro feito com sucesso!", QtWidgets.QMessageBox.Ok)
         self.popup
+
+
     def home(self):
         self.ui.botaoEnviar.clicked.connect(self.cadastroLivro) #referencia o metodo, nao chame-o
         self.show()
 
+######################################################### RELATORIOS ####################################################################
+#Janela de Relatorio de Todos os Usuarios
+class RelatorioUsuarios(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_RelatorioUsuarios()
+        self.ui.setupUi(self)
+        self.home()
+
+    def fillTable(self):
+        #Logica para exibição na tabela
+        pass
+
+    def home(self):
+        self.show()
+
+#Janela de Relatorio de Todos os Alunos
+class RelatorioAlunos(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_RelatorioAlunos()
+        self.ui.setupUi(self)
+        self.home()
+
+    def fillTable(self):
+        #Logica para exibição na tabela
+        pass
+
+    def home(self):
+        self.show()
+
+#Janela de Relatorio de Todos os Professores
+class RelatorioProfessores(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_RelatorioProfessores()
+        self.ui.setupUi(self)
+        self.home()
+
+    def fillTable(self):
+        #Logica para exibição na tabela
+        pass
+
+    def home(self):
+        self.show()
+
+#Janela de Relatorio de Todos os Livros
+class RelatorioLivros(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_RelatorioLivros()
+        self.ui.setupUi(self)
+        self.home()
+
+    def fillTable(self):
+        #Logica para exibição na tabela
+        pass
+
+    def home(self):
+        self.show()
 #Roda nossa UI
 def run():
     app = QApplication(sys.argv)

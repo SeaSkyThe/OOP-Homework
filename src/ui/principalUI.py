@@ -210,7 +210,7 @@ class Ui_MainWindow(object):
         self.actionTodos_os_professores.setText(_translate("MainWindow", "Todos os Professores"))
         self.actionHistorico_de_usuario.setText(_translate("MainWindow", "Historico de usuario"))
         self.actionEmprestimos_de_um_usuario.setText(_translate("MainWindow", "Emprestimos de um usuario"))
-        self.actionTodos_os_livros.setText(_translate("MainWindow", "Todos os livros"))
+        self.actionTodos_os_livros.setText(_translate("MainWindow", "Todos os Livros"))
         self.actionLivros_disponiveis.setText(_translate("MainWindow", "Livros disponiveis"))
         self.actionLivros_emprestados.setText(_translate("MainWindow", "Livros emprestados"))
         self.actionAtrasos.setText(_translate("MainWindow", "Atrasos"))
