@@ -99,18 +99,25 @@ class AlunoWindow(QDialog):
         self.home()
 
     def cadastroAluno(self):
-        #Logica do cadastro de ALUNO deve vir aqui
-        self.__codUsuario = self.ui.codUsuarioInput.text()
-        self.__nome = self.ui.nomeUsuarioInput.text()
-        self.__curso = str(self.ui.cursoListBox.currentText())
-        self.__ano = self.ui.anoInput.text()
-        #Cadastrando - Pode-se colocar verificação de erros aqui
-        controlador.addAluno(self.__codUsuario, self.__nome, self.__curso, self.__ano)
-        print("Cadastro de Aluno Feito!")
-        #Janela de aviso
-        self.popup = QtWidgets.QMessageBox.warning(self, 'Nice!', "Cadastro feito com sucesso!", QtWidgets.QMessageBox.Ok)
-        self.popup
-
+        if(len(self.ui.codUsuarioInput.text()) > 0 and len(self.ui.nomeUsuarioInput.text()) > 0 and len(self.ui.anoInput.text())):
+            #Logica do cadastro de ALUNO deve vir aqui
+            self.__codUsuario = self.ui.codUsuarioInput.text()
+            self.__nome = self.ui.nomeUsuarioInput.text()
+            self.__curso = str(self.ui.cursoListBox.currentText())
+            self.__ano = self.ui.anoInput.text()
+            #Cadastrando - Pode-se colocar verificação de erros aqui
+            controlador.addAluno(self.__codUsuario, self.__nome, self.__curso, self.__ano)
+            print("Cadastro de Aluno Feito!")
+            #Janela de aviso
+            self.popup = QtWidgets.QMessageBox.warning(self, 'Nice!', "Cadastro feito com sucesso!", QtWidgets.QMessageBox.Ok)
+            self.popup
+            #clear campos
+            self.ui.codUsuarioInput.setText("")
+            self.ui.nomeUsuarioInput.setText("")
+            self.ui.anoInput.setText("")
+        else:
+            self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Por favor preencha todos os campos", QtWidgets.QMessageBox.Ok)
+            self.show()
     def home(self):
         #Logica do cadastro de ALUNO prossegue aqui
         #Exemplo: Quando botao for clicado, pegar input do nome e imprimir (funcao: getNomeInput) acima:
@@ -128,16 +135,23 @@ class ProfessorWindow(QDialog):
 
     def cadastroProfessor(self):
         #Logica do cadastro de PROFESSOR deve vir aqui
-        self.__codUsuario = self.ui.codUsuarioInput.text()
-        self.__nome = self.ui.nomeUsuarioInput.text()
-        self.__titulacao = self.ui.titulacaoInput.text()
-        #Cadastrando - Pode-se colocar verificação de erros aqui
-        controlador.addProfessor(self.__codUsuario, self.__nome, self.__titulacao)
-        print("Cadastro de Professor Feito!")
-        #Janela de aviso
-        self.popup = QtWidgets.QMessageBox.warning(self, 'Nice!', "Cadastro feito com sucesso!", QtWidgets.QMessageBox.Ok)
-        self.popup
-
+        if(len(self.ui.codUsuarioInput.text()) > 0 and len(self.ui.nomeUsuarioInput.text()) > 0 and len(self.ui.titulacaoInput.text()) > 0):
+            self.__codUsuario = self.ui.codUsuarioInput.text()
+            self.__nome = self.ui.nomeUsuarioInput.text()
+            self.__titulacao = self.ui.titulacaoInput.text()
+            #Cadastrando - Pode-se colocar verificação de erros aqui
+            controlador.addProfessor(self.__codUsuario, self.__nome, self.__titulacao)
+            print("Cadastro de Professor Feito!")
+            #Janela de aviso
+            self.popup = QtWidgets.QMessageBox.warning(self, 'Nice!', "Cadastro feito com sucesso!", QtWidgets.QMessageBox.Ok)
+            #clear campos
+            self.ui.codUsuarioInput.setText("")
+            self.ui.nomeUsuarioInput.setText("")
+            self.ui.titulacaoInput.setText("")
+        else:
+            self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Por favor preencha todos os campos", QtWidgets.QMessageBox.Ok)
+            print("Aviso sobre campos dado.")
+            self.show()
 
     def home(self):
         #Logica do cadastro de PROFESSOR prossegue aqui
@@ -154,20 +168,24 @@ class LivroWindow(QDialog):
         self.home()
 
     def cadastroLivro(self):
-        #Logica de cadastro de LIVRO vem aqui
-        self.__codLivro = self.ui.codLivroInput.text()
-        self.__titulo = self.ui.tituloInput.text()
-        self.__ano = self.ui.anoInput.text()
-        #Cadastrando - Pode-se colocar verificação de erros aqui
-        controlador.addLivro(self.__codLivro, self.__titulo, self.__ano)
-        print("Cadastro de Livro Feito!")
-        #Janela de aviso
-        self.popup = QtWidgets.QMessageBox.warning(self, 'Nice!', "Cadastro feito com sucesso!", QtWidgets.QMessageBox.Ok)
-        self.popup
-
+        if(len(self.ui.codLivroInput.text()) > 0 and len(self.ui.tituloInput.text()) > 0 and len(self.ui.anoInput.text()) > 0):
+            #Logica de cadastro de LIVRO vem aqui
+            self.__codLivro = self.ui.codLivroInput.text()
+            self.__titulo = self.ui.tituloInput.text()
+            self.__ano = self.ui.anoInput.text()
+            #Cadastrando - Pode-se colocar verificação de erros aqui
+            controlador.addLivro(self.__codLivro, self.__titulo, self.__ano)
+            print("Cadastro de Livro Feito!")
+            #Janela de aviso
+            self.popup = QtWidgets.QMessageBox.warning(self, 'Nice!', "Cadastro feito com sucesso!", QtWidgets.QMessageBox.Ok)
+        else:
+            self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Por favor preencha todos os campos", QtWidgets.QMessageBox.Ok)
+            print("Aviso sobre campos dado.")
+            self.show()
 
     def home(self):
         self.ui.botaoEnviar.clicked.connect(self.cadastroLivro) #referencia o metodo, nao chame-o
+        print("Aviso sobre campos dado.")
         self.show()
 
 ######################################################### RELATORIOS ####################################################################
