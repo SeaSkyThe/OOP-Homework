@@ -56,4 +56,3 @@ class Ui_RelatorioProfessores(object):
         item = self.tabelaRelatorio.horizontalHeaderItem(3)
         item.setText(_translate("RelatorioProfessores", "Livro p/ devolver"))
         self.BigText.setText(_translate("RelatorioProfessores", "Todos os Professores"))
-
