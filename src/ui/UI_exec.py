@@ -217,9 +217,18 @@ class RelatorioUsuarios(QDialog):
             self.ui.tabelaRelatorio.setItem(rowPosition, 1, item)
 
 
-            #aqui vai ter que verificar se existe item atrasado
+            #aqui vai ter que verificar se existe item atrasado(NECESSARIO FAZER)
             item = QtWidgets.QTableWidgetItem()
             item.setData(0, each.getDiasEmprestimo())
+            self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
+
+            #aqui a logica para colocar na tabela se o usuario tem livros para devolver
+            item = QtWidgets.QTableWidgetItem()
+            isEmprestado = controlador.UsuarioComEmprestimo(each)
+            if(isEmprestado == True):
+                item.setData(0, "Sim")
+            else:
+                item.setData(0, "Não")
             self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
 
     def home(self):
@@ -237,10 +246,40 @@ class RelatorioAlunos(QDialog):
 
     def fillTable(self):
         #Logica para exibição na tabela
-        pass
+        alunos = controlador.getAlunos()
+        for each in alunos:
+            rowPosition = self.ui.tabelaRelatorio.rowCount()
+            self.ui.tabelaRelatorio.insertRow(rowPosition)
+
+            item = QtWidgets.QTableWidgetItem()
+
+            codigoUsuario = each.getCodUsuario()
+            item.setData(0, codigoUsuario)
+            self.ui.tabelaRelatorio.setItem(rowPosition, 0, item)
+
+            nomeUsuario = each.getNome()
+            item = QtWidgets.QTableWidgetItem()
+            item.setData(0, nomeUsuario)
+            self.ui.tabelaRelatorio.setItem(rowPosition, 1, item)
+
+
+            #aqui vai ter que verificar se existe item atrasado(NECESSARIO FAZER)
+            item = QtWidgets.QTableWidgetItem()
+            item.setData(0, each.getDiasEmprestimo())
+            self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
+
+            #aqui a logica para colocar na tabela se o usuario tem livros para devolver
+            item = QtWidgets.QTableWidgetItem()
+            isEmprestado = controlador.UsuarioComEmprestimo(each)
+            if(isEmprestado == True):
+                item.setData(0, "Sim")
+            else:
+                item.setData(0, "Não")
+            self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
 
     def home(self):
         self.ui.tabelaRelatorio.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.fillTable()
         self.show()
 
 #Janela de Relatorio de Todos os Professores
@@ -253,9 +292,39 @@ class RelatorioProfessores(QDialog):
 
     def fillTable(self):
         #Logica para exibição na tabela
-        pass
+        professores = controlador.getProfessores()
+        for each in professores:
+            rowPosition = self.ui.tabelaRelatorio.rowCount()
+            self.ui.tabelaRelatorio.insertRow(rowPosition)
+
+            item = QtWidgets.QTableWidgetItem()
+
+            codigoUsuario = each.getCodUsuario()
+            item.setData(0, codigoUsuario)
+            self.ui.tabelaRelatorio.setItem(rowPosition, 0, item)
+
+            nomeUsuario = each.getNome()
+            item = QtWidgets.QTableWidgetItem()
+            item.setData(0, nomeUsuario)
+            self.ui.tabelaRelatorio.setItem(rowPosition, 1, item)
+
+
+            #aqui vai ter que verificar se existe item atrasado(NECESSARIO FAZER)
+            item = QtWidgets.QTableWidgetItem()
+            item.setData(0, each.getDiasEmprestimo())
+            self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
+
+            #aqui a logica para colocar na tabela se o usuario tem livros para devolver
+            item = QtWidgets.QTableWidgetItem()
+            isEmprestado = controlador.UsuarioComEmprestimo(each)
+            if(isEmprestado == True):
+                item.setData(0, "Sim")
+            else:
+                item.setData(0, "Não")
+            self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
     def home(self):
         self.ui.tabelaRelatorio.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.fillTable()
         self.show()
 
 #Janela de Relatorio de Todos os Livros

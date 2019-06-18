@@ -33,3 +33,6 @@ class Database():
 
     def getUsuarios(self):
         return self.__usuarios
+
+    def getEmprestimos(self):
+        return self.__emprestimos

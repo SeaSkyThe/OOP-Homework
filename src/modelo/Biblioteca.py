@@ -42,3 +42,6 @@ class Biblioteca:
 
     def getUsuarios(self):
         return self.__db.getUsuarios()
+
+    def getEmprestimos(self):
+        return self.__db.getEmprestimos()
