@@ -35,5 +35,10 @@ class Biblioteca:
         livro = Livro(codLivro, nome, ano)
         self.__db.addLivro(livro)
 
+
+
     def getNumEmprestimos(self):
-        self.__db.getNumEmprestimos()
+        return self.__db.getNumEmprestimos()
+
+    def getUsuarios(self):
+        return self.__db.getUsuarios()

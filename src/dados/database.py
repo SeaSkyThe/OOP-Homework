@@ -30,3 +30,6 @@ class Database():
 
     def getNumEmprestimos(self):
         return len(self.__emprestimos)
+
+    def getUsuarios(self):
+        return self.__usuarios

@@ -11,9 +11,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_RelatorioAlunos(object):
     def setupUi(self, RelatorioAlunos):
         RelatorioAlunos.setObjectName("RelatorioAlunos")
-        RelatorioAlunos.resize(515, 359)
+        RelatorioAlunos.resize(565, 400)
         self.BigText = QtWidgets.QLabel(RelatorioAlunos)
-        self.BigText.setGeometry(QtCore.QRect(40, 40, 161, 21))
+        self.BigText.setGeometry(QtCore.QRect(30, 20, 161, 21))
         font = QtGui.QFont()
         font.setPointSize(18)
         font.setBold(True)
@@ -21,7 +21,11 @@ class Ui_RelatorioAlunos(object):
         self.BigText.setFont(font)
         self.BigText.setObjectName("BigText")
         self.tabelaRelatorio = QtWidgets.QTableWidget(RelatorioAlunos)
-        self.tabelaRelatorio.setGeometry(QtCore.QRect(40, 80, 401, 231))
+        self.tabelaRelatorio.setGeometry(QtCore.QRect(40, 80, 501, 281))
+        self.tabelaRelatorio.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        self.tabelaRelatorio.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        self.tabelaRelatorio.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
+        self.tabelaRelatorio.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.tabelaRelatorio.setDragEnabled(False)
         self.tabelaRelatorio.setObjectName("tabelaRelatorio")
         self.tabelaRelatorio.setColumnCount(4)
@@ -35,7 +39,7 @@ class Ui_RelatorioAlunos(object):
         item = QtWidgets.QTableWidgetItem()
         self.tabelaRelatorio.setHorizontalHeaderItem(3, item)
         self.tabelaRelatorio.horizontalHeader().setSortIndicatorShown(False)
-        self.tabelaRelatorio.horizontalHeader().setStretchLastSection(True)
+        self.tabelaRelatorio.horizontalHeader().setStretchLastSection(False)
 
         self.retranslateUi(RelatorioAlunos)
         QtCore.QMetaObject.connectSlotsByName(RelatorioAlunos)

@@ -23,4 +23,10 @@ class Controlador:
         self.__biblio.addLivro(codLivro, nome, ano)
 
     def getNumEmprestimos(self):
-        self.__biblio.getNumEmprestimos()
+        return self.__biblio.getNumEmprestimos()
+
+
+    #retornar lista de usuarios
+    def getUsuarios(self):
+        return self.__biblio.getUsuarios()
+ 

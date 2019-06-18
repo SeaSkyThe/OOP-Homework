@@ -69,7 +69,8 @@ class PrincipalWindow(QMainWindow):  #Main window
         self.ui.startTable.horizontalHeader().setSectionResizeMode(1) #stretched table
         ##Colocando item na tabela inicial
         item = QtWidgets.QTableWidgetItem()
-        item.setData(0, 'Num Emprestimos') #setData(Role, data) role = 0 é a displayRole, aqui sera adicionado o que deve ser apresentado na tabela
+        numEmprestimos = controlador.getNumEmprestimos()
+        item.setData(0, numEmprestimos) #setData(Role, data) role = 0 é a displayRole, aqui sera adicionado o que deve ser apresentado na tabela
         self.ui.startTable.setItem(0, 1, item)
 
         item = QtWidgets.QTableWidgetItem()
@@ -198,10 +199,32 @@ class RelatorioUsuarios(QDialog):
         self.home()
 
     def fillTable(self):
-        #Logica para exibição na tabela
-        pass
+        #Logica para exibição na tabela, tem que ver se o acesso não está sendo muito direto, e deveriamos acessar o conteudo do usuario pelo controlador
+        usuarios = controlador.getUsuarios()
+        for each in usuarios:
+            rowPosition = self.ui.tabelaRelatorio.rowCount()
+            self.ui.tabelaRelatorio.insertRow(rowPosition)
+
+            item = QtWidgets.QTableWidgetItem()
+
+            codigoUsuario = each.getCodUsuario()
+            item.setData(0, codigoUsuario)
+            self.ui.tabelaRelatorio.setItem(rowPosition, 0, item)
+
+            nomeUsuario = each.getNome()
+            item = QtWidgets.QTableWidgetItem()
+            item.setData(0, nomeUsuario)
+            self.ui.tabelaRelatorio.setItem(rowPosition, 1, item)
+
+
+            #aqui vai ter que verificar se existe item atrasado
+            item = QtWidgets.QTableWidgetItem()
+            item.setData(0, each.getDiasEmprestimo())
+            self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
 
     def home(self):
+        self.ui.tabelaRelatorio.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.fillTable()
         self.show()
 
 #Janela de Relatorio de Todos os Alunos
@@ -217,6 +240,7 @@ class RelatorioAlunos(QDialog):
         pass
 
     def home(self):
+        self.ui.tabelaRelatorio.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.show()
 
 #Janela de Relatorio de Todos os Professores
@@ -230,8 +254,8 @@ class RelatorioProfessores(QDialog):
     def fillTable(self):
         #Logica para exibição na tabela
         pass
-
     def home(self):
+        self.ui.tabelaRelatorio.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.show()
 
 #Janela de Relatorio de Todos os Livros
@@ -247,6 +271,7 @@ class RelatorioLivros(QDialog):
         pass
 
     def home(self):
+        self.ui.tabelaRelatorio.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.show()
 #Roda nossa UI
 def run():
