@@ -36,3 +36,6 @@ class Database():
 
     def getEmprestimos(self):
         return self.__emprestimos
+
+    def getLivros(self):
+        return self.__livros

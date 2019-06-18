@@ -5,6 +5,7 @@ sys.path.insert(0, '..')
 from modelo.Biblioteca import Biblioteca
 from modelo.Professor import *
 from modelo.Aluno import *
+from modelo.Livro import *
 
 #Rever a questão de instancia do controlador
 class Controlador:
@@ -27,7 +28,7 @@ class Controlador:
         return self.__biblio.getNumEmprestimos()
 
 
-    #retornar lista de usuarios
+    #Retornar LISTAS
     def getUsuarios(self):
         return self.__biblio.getUsuarios()
 
@@ -48,9 +49,11 @@ class Controlador:
 
         return professores
 
+    def getLivros(self):
+        return self.__biblio.getLivros()
+
     def getEmprestimos(self):
         return self.__biblio.getEmprestimos()
-
 
     def getNumEmprestimosUsuario(self, usuario):
         emprestimos = self.getEmprestimos()
@@ -67,4 +70,10 @@ class Controlador:
         for emprestimo in emprestimos:
             if(emprestimo.getCodUsuario() == usuario.getCodUsuario()):
                 return True
+        return False
+
+
+    def livroEstaEmprestado(self, livro):
+        if(livro.estaEmprestado() == True):
+            return True
         return False

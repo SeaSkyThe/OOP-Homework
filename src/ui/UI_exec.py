@@ -309,19 +309,23 @@ class RelatorioProfessores(QDialog):
             self.ui.tabelaRelatorio.setItem(rowPosition, 1, item)
 
 
-            #aqui vai ter que verificar se existe item atrasado(NECESSARIO FAZER)
+
             item = QtWidgets.QTableWidgetItem()
-            item.setData(0, each.getDiasEmprestimo())
+            #aqui vai ter que verificar se existe item atrasado(NECESSARIO FAZER)
+            item.setData(0, each.getDiasEmprestimo())   #Segundo parametro é o dado que vai aparecer na tabela
             self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
 
-            #aqui a logica para colocar na tabela se o usuario tem livros para devolver
+
             item = QtWidgets.QTableWidgetItem()
+            #aqui a logica para colocar na tabela se o usuario tem livros para devolver(NECESSARIO FAZER)
             isEmprestado = controlador.UsuarioComEmprestimo(each)
             if(isEmprestado == True):
                 item.setData(0, "Sim")
             else:
                 item.setData(0, "Não")
             self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
+
+
     def home(self):
         self.ui.tabelaRelatorio.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.fillTable()
@@ -337,10 +341,50 @@ class RelatorioLivros(QDialog):
 
     def fillTable(self):
         #Logica para exibição na tabela
+        livros = controlador.getLivros()
+        for each in livros:
+            rowPosition = self.ui.tabelaRelatorio.rowCount()
+            self.ui.tabelaRelatorio.insertRow(rowPosition)
+
+            item = QtWidgets.QTableWidgetItem()
+
+            codLivro = each.getCodLivro()
+            item.setData(0, codLivro)
+            self.ui.tabelaRelatorio.setItem(rowPosition, 0, item)
+
+            nomeLivro = each.getNome()
+            item = QtWidgets.QTableWidgetItem()
+            item.setData(0, nomeLivro)
+            self.ui.tabelaRelatorio.setItem(rowPosition, 1, item)
+
+            anoLivro = each.getAno()
+            item = QtWidgets.QTableWidgetItem()
+            item.setData(0, anoLivro)
+            self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
+
+            #Verifica se está emprestado
+            item = QtWidgets.QTableWidgetItem()
+            isEmprestado = controlador.livroEstaEmprestado(each)
+            if(isEmprestado == True):
+                item.setData(0, "Sim")
+            else:
+                item.setData(0, "Não")
+            self.ui.tabelaRelatorio.setItem(rowPosition, 3, item)
+
+            #AQUI TEM QUE VIR A LOGICA PARA VERIFICAR SE O LIVRO ESTÁ ATRASADO
+            item = QtWidgets.QTableWidgetItem()
+            isEmprestado = controlador.UsuarioComEmprestimo(each)
+            if(isEmprestado == True):
+                item.setData(0, "Sim")
+            else:
+                item.setData(0, "Não")
+            self.ui.tabelaRelatorio.setItem(rowPosition, 4, item)
+
         pass
 
     def home(self):
         self.ui.tabelaRelatorio.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.fillTable()
         self.show()
 #Roda nossa UI
 def run():

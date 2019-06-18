@@ -45,3 +45,6 @@ class Biblioteca:
 
     def getEmprestimos(self):
         return self.__db.getEmprestimos()
+
+    def getLivros(self):
+        return self.__db.getLivros()
