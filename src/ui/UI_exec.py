@@ -6,6 +6,7 @@ from principalUI import *
 from NovoAluno import *
 from NovoProfessor import *
 from NovoLivro import *
+from NovoEmprestimo import *
 from RelatorioUsuarios import *
 from RelatorioAlunos import *
 from RelatorioProfessores import *
@@ -28,6 +29,10 @@ class PrincipalWindow(QMainWindow):  #Main window
 
         self.dialogs = list()
 
+    #Quando apertar o botao de novo emprestimo
+    def on_NovoEmprestimo_clicked(self):
+        self.dialog = EmprestimoWindow()
+        print("Janela de Emprestimo aberta!")
     #Quando selecionar a opção de menu (novo aluno)
     def on_NovoAluno_clicked(self):
         self.dialog = AlunoWindow()
@@ -65,8 +70,7 @@ class PrincipalWindow(QMainWindow):  #Main window
         self.dialog = LivrosDisponiveis()
         print("Janela de Relatorio de Livros Disponiveis aberta!")
 
-    def home(self):
-        self.ui.startTable.horizontalHeader().setSectionResizeMode(1) #stretched table
+    def setItemsInTable(self):
         ##Colocando item na tabela inicial
         item = QtWidgets.QTableWidgetItem()
         numEmprestimos = controlador.getNumEmprestimos()
@@ -74,9 +78,14 @@ class PrincipalWindow(QMainWindow):  #Main window
         self.ui.startTable.setItem(0, 1, item)
 
         item = QtWidgets.QTableWidgetItem()
-        item.setData(0, 'Num Atrasos') #setData(Role, data) role = 0 é a displayRole, aqui sera adicionado o que deve ser apresentado na tabela
+        item.setData(0, controlador.getNumAtrasos()) #setData(Role, data) role = 0 é a displayRole, aqui sera adicionado o que deve ser apresentado na tabela
         self.ui.startTable.setItem(1, 1, item)
 
+
+    def home(self):
+        self.ui.startTable.horizontalHeader().setSectionResizeMode(1) #stretched table
+
+        self.setItemsInTable()
         ##Apertando botões do menu de cadastro de Aluno e Professor e de livro
         self.ui.actionNovo_Aluno.triggered.connect(self.on_NovoAluno_clicked)    #Abre janela de cadastro de aluno
         self.ui.actionNovo_Professor.triggered.connect(self.on_NovoProfessor_clicked) #Abre a janela de cadastro de professor
@@ -86,9 +95,79 @@ class PrincipalWindow(QMainWindow):  #Main window
         self.ui.actionTodos_os_alunos.triggered.connect(self.on_TodosAlunos_clicked)
         self.ui.actionTodos_os_professores.triggered.connect(self.on_TodosProfessores_clicked)
         self.ui.actionTodos_os_livros.triggered.connect(self.on_TodosLivros_clicked)
+
+        ##Menu de novo Emprestimo
+        self.ui.buttonEmprestimo.clicked.connect(self.on_NovoEmprestimo_clicked)
         #mostrando interface
+        self.update()
         self.show()
 
+
+########################################################## EMPRÉSTIMO ####################################################################
+class EmprestimoWindow(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_NovoEmprestimo()
+        self.ui.setupUi(self)
+        self.home()
+        self.livrosEmprestar = []
+
+    def fillUserBox(self):
+        usuarios = controlador.getUsuarios()
+        for usuario in usuarios:
+            nomeUsuario = usuario.getNome()
+            self.ui.selectUser.addItem(nomeUsuario)
+
+    def fillBookBox(self):
+        livros = controlador.getLivros()
+        for livro in livros:
+            nomeLivro = livro.getNome()
+            self.ui.selectBook.addItem(nomeLivro)
+
+    def putItemInTable(self):
+        #Logica para exibição na tabela
+        nomeLivro = self.ui.selectBook.currentText()
+        livro = controlador.getLivroNome(nomeLivro)
+        if(livro != None):
+            rowPosition = self.ui.tabelaLivrosEmprestimo.rowCount()
+            self.ui.tabelaLivrosEmprestimo.insertRow(rowPosition)
+
+            item = QtWidgets.QTableWidgetItem()
+            codigoLivro = livro.getCodLivro()
+            item.setData(0, codigoLivro)
+            self.ui.tabelaLivrosEmprestimo.setItem(rowPosition, 0, item)
+
+            nomeLivro = livro.getNome()
+            item = QtWidgets.QTableWidgetItem()
+            item.setData(0, nomeLivro)
+            self.ui.tabelaLivrosEmprestimo.setItem(rowPosition, 1, item)
+
+            anoLivro = livro.getAno()
+            item = QtWidgets.QTableWidgetItem()
+            item.setData(0, anoLivro)
+            self.ui.tabelaLivrosEmprestimo.setItem(rowPosition, 2, item)
+
+        self.livrosEmprestar.append(livro)
+        self.ui.tabelaLivrosEmprestimo.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+
+    def onFazerEmprestimoClicked(self):
+        if(len(self.ui.codEmprestimoInput.text()) > 0 and self.ui.tabelaLivrosEmprestimo.rowCount() > 0):
+            codEmprestimo = self.ui.codEmprestimoInput.text()
+            usuario = controlador.getUsuarioNome(self.ui.selectUser.currentText())
+            controlador.addEmprestimo(codEmprestimo, usuario)
+            controlador.addItensEmprestimo(codEmprestimo, self.livrosEmprestar)
+            self.popup = QtWidgets.QMessageBox.warning(self, 'Nice!', "Empréstimo realizado com sucesso!", QtWidgets.QMessageBox.Ok)
+            self.popup
+        else:
+            self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Por favor, verifique se preencheu o campo de codigo de empréstimo e selecionou ao menos um livro!", QtWidgets.QMessageBox.Ok)
+            self.show()
+
+    def home(self):
+        self.fillUserBox()
+        self.fillBookBox()
+        self.ui.addBook.clicked.connect(self.putItemInTable)
+        self.ui.finalizarEmprestimo.clicked.connect(self.onFazerEmprestimoClicked)
+        self.show()
 
 ######################################################### CADASTROS ####################################################################
 #Janela de cadastro de Aluno
@@ -397,10 +476,15 @@ class RelatorioLivros(QDialog):
         self.ui.tabelaRelatorio.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.fillTable()
         self.show()
+
 #Roda nossa UI
 def run():
     app = QApplication(sys.argv)
     window = PrincipalWindow()
     sys.exit(app.exec_())
 
+#TESTES BEFORE RUN
+controlador.addProfessor(144,"Danilo Eler", "Doutor")
+controlador.addAluno (145, "Marcelo Eduardo Rodrigues", "Ciencia da Computacao", "2016")
+controlador.addLivro(146, "Um curso de calculo vol 2", "2002")
 run()

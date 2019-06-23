@@ -1,7 +1,6 @@
 #todo: rever questão das datas
 
 import datetime
-from Emprestimo import *
 
 
 class Item:

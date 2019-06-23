@@ -9,7 +9,7 @@ from modelo.Config import *
 from modelo.Aluno import *
 from modelo.Professor import *
 from modelo.Livro import *
-
+from modelo.Emprestimo import *
 from dados.Database import *
 
 class Biblioteca:
@@ -35,8 +35,10 @@ class Biblioteca:
         livro = Livro(codLivro, nome, ano)
         self.__db.addLivro(livro)
 
-
-
+    def addEmprestimo(self, codEmprestimo, usuario):
+        emprestimo = Emprestimo(codEmprestimo, usuario)
+        self.__db.addEmprestimo(emprestimo)
+        
     def getNumEmprestimos(self):
         return self.__db.getNumEmprestimos()
 

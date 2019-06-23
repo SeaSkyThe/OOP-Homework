@@ -24,10 +24,10 @@ class Livro:
         self.__emprestado = emprestado
 
     def emprestar(self):
-        self.__setEmprestado(True)
+        self.__emprestado = True
 
     def devolver(self):
-        self.__setEmprestado(False)
+        self.__emprestado = False
 
     def getNome(self):
         return self.__nome

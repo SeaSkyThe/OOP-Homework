@@ -28,6 +28,9 @@ class Database():
     def addLivro(self, livro): #parametro do tipo Livro
         self.__livros.append(livro)
 
+    def addEmprestimo(self, emprestimo):
+        self.__emprestimos.append(emprestimo)
+
     def getNumEmprestimos(self):
         return len(self.__emprestimos)
 
