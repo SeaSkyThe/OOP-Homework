@@ -219,7 +219,11 @@ class RelatorioUsuarios(QDialog):
 
             #aqui vai ter que verificar se existe item atrasado(NECESSARIO FAZER)
             item = QtWidgets.QTableWidgetItem()
-            item.setData(0, each.getDiasEmprestimo())
+            isAtrasado = controlador.UsuarioComAtraso(each)
+            if(isAtrasado == True):
+                item.setData(0, "Sim")
+            else:
+                item.setData(0, "Não")
             self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
 
             #aqui a logica para colocar na tabela se o usuario tem livros para devolver
@@ -229,7 +233,7 @@ class RelatorioUsuarios(QDialog):
                 item.setData(0, "Sim")
             else:
                 item.setData(0, "Não")
-            self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
+            self.ui.tabelaRelatorio.setItem(rowPosition, 3, item)
 
     def home(self):
         self.ui.tabelaRelatorio.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
@@ -265,7 +269,11 @@ class RelatorioAlunos(QDialog):
 
             #aqui vai ter que verificar se existe item atrasado(NECESSARIO FAZER)
             item = QtWidgets.QTableWidgetItem()
-            item.setData(0, each.getDiasEmprestimo())
+            isAtrasado = controlador.UsuarioComAtraso(each)
+            if(isAtrasado == True):
+                item.setData(0, "Sim")
+            else:
+                item.setData(0, "Não")
             self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
 
             #aqui a logica para colocar na tabela se o usuario tem livros para devolver
@@ -275,7 +283,7 @@ class RelatorioAlunos(QDialog):
                 item.setData(0, "Sim")
             else:
                 item.setData(0, "Não")
-            self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
+            self.ui.tabelaRelatorio.setItem(rowPosition, 3, item)
 
     def home(self):
         self.ui.tabelaRelatorio.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
@@ -311,19 +319,23 @@ class RelatorioProfessores(QDialog):
 
 
             item = QtWidgets.QTableWidgetItem()
-            #aqui vai ter que verificar se existe item atrasado(NECESSARIO FAZER)
-            item.setData(0, each.getDiasEmprestimo())   #Segundo parametro é o dado que vai aparecer na tabela
+            #aqui vai ter que verificar se existe item atrasado
+            isAtrasado = controlador.UsuarioComAtraso(each)
+            if(isAtrasado == True):
+                item.setData(0, "Sim")
+            else:
+                item.setData(0, "Não")
             self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
 
 
             item = QtWidgets.QTableWidgetItem()
-            #aqui a logica para colocar na tabela se o usuario tem livros para devolver(NECESSARIO FAZER)
+            #aqui a logica para colocar na tabela se o usuario tem livros para devolver
             isEmprestado = controlador.UsuarioComEmprestimo(each)
             if(isEmprestado == True):
                 item.setData(0, "Sim")
             else:
                 item.setData(0, "Não")
-            self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
+            self.ui.tabelaRelatorio.setItem(rowPosition, 3, item)
 
 
     def home(self):
@@ -373,13 +385,12 @@ class RelatorioLivros(QDialog):
 
             #AQUI TEM QUE VIR A LOGICA PARA VERIFICAR SE O LIVRO ESTÁ ATRASADO
             item = QtWidgets.QTableWidgetItem()
-            isEmprestado = controlador.UsuarioComEmprestimo(each)
-            if(isEmprestado == True):
+            isAtrasado = controlador.livroEstaAtrasado(each)
+            if(isAtrasado == True):
                 item.setData(0, "Sim")
             else:
                 item.setData(0, "Não")
             self.ui.tabelaRelatorio.setItem(rowPosition, 4, item)
-
         pass
 
     def home(self):

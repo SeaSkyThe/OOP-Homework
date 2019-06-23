@@ -1,6 +1,8 @@
 #todo: rever questão das datas
 
 import datetime
+from Emprestimo import *
+
 
 class Item:
     def __init__(self, codEmprestimo, codLivro):
@@ -17,3 +19,6 @@ class Item:
 
     def setDataDevolucao(self, dataDevolucao):
         self.__dataDevolucao = dataDevolucao
+
+    def getCodLivro(self):
+        return self.__codLivro

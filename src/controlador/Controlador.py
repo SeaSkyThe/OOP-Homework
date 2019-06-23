@@ -72,8 +72,38 @@ class Controlador:
                 return True
         return False
 
+    def UsuarioComAtraso(self, usuario):
+        if(self.UsuarioComEmprestimo(usuario) == False):
+            return False
+        else:
+            emprestimos = self.getEmprestimos()
+            codigoUsuario = usuario.getCodUsuario()
+            for emprestimo in emprestimos:
+                codigoUsuarioEmprestimo = emprestimo.getCodUsuario()
+                if(codigoUsuario == codigoUsuarioEmprestimo):
+                    itens = emprestimos.getItens()
+                    for item in itens:
+                        if(emprestimo.getDataDevolucao() > datetime.datetime.now()):
+                            return True
+        return False
+
 
     def livroEstaEmprestado(self, livro):
         if(livro.estaEmprestado() == True):
             return True
+        return False
+
+    def livroEstaAtrasado(self, livro):
+        if(self.livroEstaEmprestado(livro) == False):
+            return False
+        else:
+            emprestimos = self.getEmprestimos()
+            codigoLivro = livro.getCodLivro()
+            for emprestimo in emprestimos:
+                itens = emprestimos.getItens()
+                for item in itens:
+                    codigoLivroEmprestimo = item.getCodLivro()
+                    if(codigoLivro == codigoLivroEmprestimo):
+                        if(emprestimo.getDataDevolucao() > datetime.datetime.now()):
+                            return True
         return False
