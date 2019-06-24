@@ -128,7 +128,7 @@ class EmprestimoWindow(QDialog):
         #Logica para exibição na tabela
         nomeLivro = self.ui.selectBook.currentText()
         livro = controlador.getLivroNome(nomeLivro)
-        if(livro != None):
+        if(livro != None and livro.estaEmprestado() == False):
             rowPosition = self.ui.tabelaLivrosEmprestimo.rowCount()
             self.ui.tabelaLivrosEmprestimo.insertRow(rowPosition)
 
@@ -146,6 +146,9 @@ class EmprestimoWindow(QDialog):
             item = QtWidgets.QTableWidgetItem()
             item.setData(0, anoLivro)
             self.ui.tabelaLivrosEmprestimo.setItem(rowPosition, 2, item)
+        else:
+            self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Esse livro está emprestado", QtWidgets.QMessageBox.Ok)
+            self.show()
 
         self.livrosEmprestar.append(livro)
         self.ui.tabelaLivrosEmprestimo.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
