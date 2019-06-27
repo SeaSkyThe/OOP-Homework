@@ -121,8 +121,9 @@ class EmprestimoWindow(QDialog):
     def fillBookBox(self):
         livros = controlador.getLivros()
         for livro in livros:
-            nomeLivro = livro.getNome()
-            self.ui.selectBook.addItem(nomeLivro)
+            if(livro.estaEmprestado() == False):
+                nomeLivro = livro.getNome()
+                self.ui.selectBook.addItem(nomeLivro)
 
     def putItemInTable(self):
         #Logica para exibição na tabela
