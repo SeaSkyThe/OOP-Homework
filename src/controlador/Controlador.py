@@ -2,6 +2,7 @@ import sys
 del sys.path[0]
 sys.path.insert(0, '..')
 
+import pickle
 from modelo.Biblioteca import Biblioteca
 from modelo.Professor import *
 from modelo.Aluno import *
@@ -15,7 +16,7 @@ class Controlador:
         self.__biblio = Biblioteca()
 
     def getConfiguracoes():
-        return self.__biblio.getConfiguracoes
+        return self.__biblio.getConfiguracoes()
 
     def addAluno(self, codUsuario, nome, curso, ano):
         self.__biblio.addAluno(codUsuario, nome, curso, ano)
@@ -156,3 +157,34 @@ class Controlador:
                 num += 1
 
         return num
+
+
+    def saveAll(self):
+        dump = self.__biblio.dumpDatabase()
+        config = self.__biblio.getConfiguracoes()
+        print(config)
+        pickle_out = open(config.getArquivoUsuarios(), "wb")
+        pickle.dump(dump['usuarios'], pickle_out)
+        pickle_out.close()
+        pickle_out = open(config.getArquivoEmprestimos(), "wb")
+        pickle.dump(dump['emprestimos'], pickle_out)
+        pickle_out.close()
+        pickle_out = open(config.getArquivoLivros(), "wb")
+        pickle.dump(dump['livros'], pickle_out)
+        pickle_out.close()
+
+
+    def loadData(self):
+        config = self.__biblio.getConfiguracoes()
+        print(config)
+        pickle_in = open(config.getArquivoUsuarios(), "rb")
+        usuarios = pickle.load(pickle_in)
+        pickle_in.close()
+        pickle_in = open(config.getArquivoEmprestimos(), "rb")
+        emprestimos = pickle.load(pickle_in)
+        pickle_in.close()
+        pickle_in = open(config.getArquivoLivros(), "rb")
+        livros = pickle.load(pickle_in)
+        pickle_in.close()
+
+        self.__biblio.restoreDatabase(usuarios, emprestimos, livros)

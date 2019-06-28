@@ -70,6 +70,16 @@ class PrincipalWindow(QMainWindow):  #Main window
         self.dialog = LivrosDisponiveis()
         print("Janela de Relatorio de Livros Disponiveis aberta!")
 
+    def on_SalvarDados_clicked(self):
+        controlador.saveAll()
+        print("Chamando funcao de salvamento")
+        self.popup = QtWidgets.QMessageBox.warning(self, 'Nice!', "Dados salvos com sucesso!", QtWidgets.QMessageBox.Ok)
+
+    def on_CarregarDados_clicked(self):
+        controlador.loadData()
+        print("Chamando funcao de carregamento")
+        self.popup = QtWidgets.QMessageBox.warning(self, 'Nice!', "Dados recuperados com sucesso! Bom trabalho :)", QtWidgets.QMessageBox.Ok)
+
     def setItemsInTable(self):
         ##Colocando item na tabela inicial
         item = QtWidgets.QTableWidgetItem()
@@ -98,6 +108,9 @@ class PrincipalWindow(QMainWindow):  #Main window
 
         ##Menu de novo Emprestimo
         self.ui.buttonEmprestimo.clicked.connect(self.on_NovoEmprestimo_clicked)
+        ## SALVAMENTO E CARREGAMENTO DE DADOS
+        self.ui.actionSalvar_Dados.triggered.connect(self.on_SalvarDados_clicked)
+        self.ui.actionCarregar_Dados.triggered.connect(self.on_CarregarDados_clicked)
         #mostrando interface
         self.update()
         self.show()

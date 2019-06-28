@@ -2,9 +2,9 @@
 
 class Config:
     def __init__(self):
-        self.__arquivoLivros = "../archives/livros.pickle" #Verificar se funciona
-        self.__arquivoUsuarios = "../archives/usuarios.pickle"
-        self.__arquivoEmprestimos = "../archives/emprestimos.pickle"
+        self.__arquivoLivros = "../../archives/livros.pickle" #Verificar se funciona
+        self.__arquivoUsuarios = "../../archives/usuarios.pickle"
+        self.__arquivoEmprestimos = "../../archives/emprestimos.pickle"
         self.__diasAluno = 10  #tempo de emprestimo
         self.__diasProfessor = 15
 

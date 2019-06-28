@@ -10,7 +10,7 @@ from modelo.Aluno import *
 from modelo.Professor import *
 from modelo.Livro import *
 from modelo.Emprestimo import *
-from dados.Database import *
+from dados.database import *
 
 class Biblioteca:
     def __init__(self):
@@ -38,7 +38,7 @@ class Biblioteca:
     def addEmprestimo(self, codEmprestimo, usuario):
         emprestimo = Emprestimo(codEmprestimo, usuario)
         self.__db.addEmprestimo(emprestimo)
-        
+
     def getNumEmprestimos(self):
         return self.__db.getNumEmprestimos()
 
@@ -50,3 +50,9 @@ class Biblioteca:
 
     def getLivros(self):
         return self.__db.getLivros()
+
+    def dumpDatabase(self):
+        return self.__db.dump()
+
+    def restoreDatabase(self, usuarios, emprestimos, livros):
+        return self.__db.restore(usuarios, emprestimos, livros)

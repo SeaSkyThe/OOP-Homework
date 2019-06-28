@@ -42,3 +42,15 @@ class Database():
 
     def getLivros(self):
         return self.__livros
+
+    def dump(self):
+        return {
+            'usuarios': self.__usuarios,
+            'emprestimos': self.__emprestimos,
+            'livros': self.__livros
+        }
+
+    def restore(self, usuarios, emprestimos, livros):
+        self.__usuarios = usuarios
+        self.__emprestimos = emprestimos
+        self.__livros = livros
