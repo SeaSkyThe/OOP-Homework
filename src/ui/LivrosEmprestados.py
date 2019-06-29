@@ -32,7 +32,7 @@ class Ui_LivrosEmprestados(object):
         self.tabelaRelatorio.horizontalHeader().setSortIndicatorShown(False)
         self.tabelaRelatorio.horizontalHeader().setStretchLastSection(False)
         self.BigText = QtWidgets.QLabel(LivrosEmprestados)
-        self.BigText.setGeometry(QtCore.QRect(30, 20, 231, 51))
+        self.BigText.setGeometry(QtCore.QRect(30, 20, 411, 51))
         font = QtGui.QFont()
         font.setPointSize(18)
         font.setBold(True)
