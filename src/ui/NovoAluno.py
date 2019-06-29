@@ -14,7 +14,7 @@ class Ui_CadastroAluno(object):
         CadastroAluno.resize(458, 306)
         self.novoAlunoText = QtWidgets.QLabel(CadastroAluno)
         self.novoAlunoText.setEnabled(True)
-        self.novoAlunoText.setGeometry(QtCore.QRect(30, 20, 211, 16))
+        self.novoAlunoText.setGeometry(QtCore.QRect(30, 10, 211, 27))
         font = QtGui.QFont()
         font.setPointSize(18)
         font.setBold(True)
@@ -84,4 +84,3 @@ class Ui_CadastroAluno(object):
         self.anoText.setText(_translate("CadastroAluno", "Ano:"))
         self.anoInput.setPlaceholderText(_translate("CadastroAluno", "Ex: 2018"))
         self.botaoEnviar.setText(_translate("CadastroAluno", "Enviar"))
-

@@ -13,7 +13,7 @@ class Ui_RelatorioUsuarios(object):
         RelatorioUsuarios.setObjectName("RelatorioUsuarios")
         RelatorioUsuarios.resize(568, 404)
         self.BigText = QtWidgets.QLabel(RelatorioUsuarios)
-        self.BigText.setGeometry(QtCore.QRect(30, 20, 161, 21))
+        self.BigText.setGeometry(QtCore.QRect(40, 10, 300, 60))
         font = QtGui.QFont()
         font.setPointSize(18)
         font.setBold(True)
@@ -58,4 +58,3 @@ class Ui_RelatorioUsuarios(object):
         item.setText(_translate("RelatorioUsuarios", "Livro atrasado"))
         item = self.tabelaRelatorio.horizontalHeaderItem(3)
         item.setText(_translate("RelatorioUsuarios", "Livro p/ devolver"))
-

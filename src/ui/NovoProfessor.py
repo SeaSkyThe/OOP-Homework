@@ -14,7 +14,7 @@ class Ui_CadastroProfessor(object):
         CadastroProfessor.resize(458, 306)
         self.novoProfessorText = QtWidgets.QLabel(CadastroProfessor)
         self.novoProfessorText.setEnabled(True)
-        self.novoProfessorText.setGeometry(QtCore.QRect(30, 20, 211, 16))
+        self.novoProfessorText.setGeometry(QtCore.QRect(30, 15, 211, 25))
         font = QtGui.QFont()
         font.setPointSize(18)
         font.setBold(True)
@@ -58,4 +58,3 @@ class Ui_CadastroProfessor(object):
         self.anoText.setText(_translate("CadastroProfessor", "Titulação:"))
         self.titulacaoInput.setPlaceholderText(_translate("CadastroProfessor", "Doutor"))
         self.botaoEnviar.setText(_translate("CadastroProfessor", "Enviar"))
-

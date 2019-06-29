@@ -18,7 +18,7 @@ class Ui_CadastroLivro(object):
         CadastroLivro.setFont(font)
         self.novoLivroText = QtWidgets.QLabel(CadastroLivro)
         self.novoLivroText.setEnabled(True)
-        self.novoLivroText.setGeometry(QtCore.QRect(30, 20, 211, 16))
+        self.novoLivroText.setGeometry(QtCore.QRect(30, 15, 211, 25))
         font = QtGui.QFont()
         font.setPointSize(18)
         font.setBold(True)
@@ -64,4 +64,3 @@ class Ui_CadastroLivro(object):
         self.anoText.setText(_translate("CadastroLivro", "Ano:"))
         self.anoInput.setPlaceholderText(_translate("CadastroLivro", "Ex: 2018"))
         self.botaoEnviar.setText(_translate("CadastroLivro", "Enviar"))
-

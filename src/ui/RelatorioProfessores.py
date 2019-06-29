@@ -33,7 +33,7 @@ class Ui_RelatorioProfessores(object):
         self.tabelaRelatorio.horizontalHeader().setSortIndicatorShown(False)
         self.tabelaRelatorio.horizontalHeader().setStretchLastSection(False)
         self.BigText = QtWidgets.QLabel(RelatorioProfessores)
-        self.BigText.setGeometry(QtCore.QRect(40, 30, 191, 21))
+        self.BigText.setGeometry(QtCore.QRect(40, 10, 300, 60))
         font = QtGui.QFont()
         font.setPointSize(18)
         font.setBold(True)

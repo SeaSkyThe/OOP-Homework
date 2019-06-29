@@ -13,7 +13,7 @@ class Ui_NovoEmprestimo(object):
         NovoEmprestimo.setObjectName("NovoEmprestimo")
         NovoEmprestimo.resize(504, 529)
         self.NovoEmprestimoText = QtWidgets.QLabel(NovoEmprestimo)
-        self.NovoEmprestimoText.setGeometry(QtCore.QRect(30, 20, 221, 61))
+        self.NovoEmprestimoText.setGeometry(QtCore.QRect(30, 20, 277, 61))
         font = QtGui.QFont()
         font.setPointSize(23)
         font.setBold(True)
@@ -88,4 +88,3 @@ class Ui_NovoEmprestimo(object):
         self.finalizarEmprestimo.setText(_translate("NovoEmprestimo", "Fazer empréstimo"))
         self.removeBook.setText(_translate("NovoEmprestimo", "Remover livro"))
         self.codEmprestimoText.setText(_translate("NovoEmprestimo", "Codigo de Emprestimo:"))
-
