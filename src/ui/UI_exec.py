@@ -35,7 +35,7 @@ class PrincipalWindow(QMainWindow):  #Main window
         #Refresh na tela inicial para atualização da tabela
         self.Timer = QTimer()
         self.Timer.setInterval(1000)
-        self.Timer.timeout.connect(self.home)
+        self.Timer.timeout.connect(self.setItemsInTable
         self.Timer.start()
 
     #Quando apertar o botao de novo emprestimo
