@@ -2,6 +2,7 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import *
+from PyQt5.QtCore import QTimer
 from principalUI import *
 from NovoAluno import *
 from NovoProfessor import *
@@ -11,6 +12,8 @@ from RelatorioUsuarios import *
 from RelatorioAlunos import *
 from RelatorioProfessores import *
 from RelatorioLivros import *
+from LivrosDisponiveis import *
+from LivrosEmprestados import *
 
 del sys.path[0]
 sys.path.insert(0, '..')
@@ -28,6 +31,12 @@ class PrincipalWindow(QMainWindow):  #Main window
         self.home()
 
         self.dialogs = list()
+
+        #Refresh na tela inicial para atualização da tabela
+        self.Timer = QTimer()
+        self.Timer.setInterval(1000)
+        self.Timer.timeout.connect(self.home)
+        self.Timer.start()
 
     #Quando apertar o botao de novo emprestimo
     def on_NovoEmprestimo_clicked(self):
@@ -70,6 +79,10 @@ class PrincipalWindow(QMainWindow):  #Main window
         self.dialog = LivrosDisponiveis()
         print("Janela de Relatorio de Livros Disponiveis aberta!")
 
+    def on_LivrosEmprestados_clicked(self):
+        self.dialog = LivrosEmprestados()
+        print("Janela de Relatorio de Livros Emprestados aberta!")
+
     def on_SalvarDados_clicked(self):
         controlador.saveAll()
         print("Chamando funcao de salvamento")
@@ -105,14 +118,17 @@ class PrincipalWindow(QMainWindow):  #Main window
         self.ui.actionTodos_os_alunos.triggered.connect(self.on_TodosAlunos_clicked)
         self.ui.actionTodos_os_professores.triggered.connect(self.on_TodosProfessores_clicked)
         self.ui.actionTodos_os_livros.triggered.connect(self.on_TodosLivros_clicked)
+        self.ui.actionLivros_disponiveis.triggered.connect(self.on_LivrosDisponiveis_clicked)
+        self.ui.actionLivros_emprestados.triggered.connect(self.on_LivrosEmprestados_clicked)
 
         ##Menu de novo Emprestimo
         self.ui.buttonEmprestimo.clicked.connect(self.on_NovoEmprestimo_clicked)
         ## SALVAMENTO E CARREGAMENTO DE DADOS
         self.ui.actionSalvar_Dados.triggered.connect(self.on_SalvarDados_clicked)
         self.ui.actionCarregar_Dados.triggered.connect(self.on_CarregarDados_clicked)
+
+
         #mostrando interface
-        self.update()
         self.show()
 
 
@@ -198,23 +214,31 @@ class AlunoWindow(QDialog):
     def cadastroAluno(self):
         if(len(self.ui.codUsuarioInput.text()) > 0 and len(self.ui.nomeUsuarioInput.text()) > 0 and len(self.ui.anoInput.text())):
             #Logica do cadastro de ALUNO deve vir aqui
-            self.__codUsuario = self.ui.codUsuarioInput.text()
-            self.__nome = self.ui.nomeUsuarioInput.text()
-            self.__curso = str(self.ui.cursoListBox.currentText())
-            self.__ano = self.ui.anoInput.text()
-            #Cadastrando - Pode-se colocar verificação de erros aqui
-            controlador.addAluno(self.__codUsuario, self.__nome, self.__curso, self.__ano)
-            print("Cadastro de Aluno Feito!")
-            #Janela de aviso
-            self.popup = QtWidgets.QMessageBox.warning(self, 'Nice!', "Cadastro feito com sucesso!", QtWidgets.QMessageBox.Ok)
-            self.popup
-            #clear campos
-            self.ui.codUsuarioInput.setText("")
-            self.ui.nomeUsuarioInput.setText("")
-            self.ui.anoInput.setText("")
+            if(controlador.getUsuarioCodigo(self.ui.codUsuarioInput.text()) == None):
+                self.__codUsuario = self.ui.codUsuarioInput.text()
+                self.__nome = self.ui.nomeUsuarioInput.text()
+                self.__curso = str(self.ui.cursoListBox.currentText())
+                self.__ano = self.ui.anoInput.text()
+
+                #Cadastrando - Pode-se colocar verificação de erros aqui
+                controlador.addAluno(self.__codUsuario, self.__nome, self.__curso, self.__ano)
+                print("Cadastro de Aluno Feito!")
+                #Janela de aviso
+                self.popup = QtWidgets.QMessageBox.warning(self, 'Nice!', "Cadastro feito com sucesso!", QtWidgets.QMessageBox.Ok)
+                self.popup
+                #clear campos
+                self.ui.codUsuarioInput.setText("")
+                self.ui.nomeUsuarioInput.setText("")
+                self.ui.anoInput.setText("")
+
+            else:
+                self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Já existe um usuário cadastrado com esse código! Tente novamente!", QtWidgets.QMessageBox.Ok)
+                self.show()
+
         else:
             self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Por favor preencha todos os campos", QtWidgets.QMessageBox.Ok)
             self.show()
+
     def home(self):
         #Logica do cadastro de ALUNO prossegue aqui
         #Exemplo: Quando botao for clicado, pegar input do nome e imprimir (funcao: getNomeInput) acima:
@@ -233,18 +257,22 @@ class ProfessorWindow(QDialog):
     def cadastroProfessor(self):
         #Logica do cadastro de PROFESSOR deve vir aqui
         if(len(self.ui.codUsuarioInput.text()) > 0 and len(self.ui.nomeUsuarioInput.text()) > 0 and len(self.ui.titulacaoInput.text()) > 0):
-            self.__codUsuario = self.ui.codUsuarioInput.text()
-            self.__nome = self.ui.nomeUsuarioInput.text()
-            self.__titulacao = self.ui.titulacaoInput.text()
-            #Cadastrando - Pode-se colocar verificação de erros aqui
-            controlador.addProfessor(self.__codUsuario, self.__nome, self.__titulacao)
-            print("Cadastro de Professor Feito!")
-            #Janela de aviso
-            self.popup = QtWidgets.QMessageBox.warning(self, 'Nice!', "Cadastro feito com sucesso!", QtWidgets.QMessageBox.Ok)
-            #clear campos
-            self.ui.codUsuarioInput.setText("")
-            self.ui.nomeUsuarioInput.setText("")
-            self.ui.titulacaoInput.setText("")
+            if(controlador.getUsuarioCodigo(self.ui.codUsuarioInput.text()) == None):
+                self.__codUsuario = self.ui.codUsuarioInput.text()
+                self.__nome = self.ui.nomeUsuarioInput.text()
+                self.__titulacao = self.ui.titulacaoInput.text()
+                #Cadastrando - Pode-se colocar verificação de erros aqui
+                controlador.addProfessor(self.__codUsuario, self.__nome, self.__titulacao)
+                print("Cadastro de Professor Feito!")
+                #Janela de aviso
+                self.popup = QtWidgets.QMessageBox.warning(self, 'Nice!', "Cadastro feito com sucesso!", QtWidgets.QMessageBox.Ok)
+                #clear campos
+                self.ui.codUsuarioInput.setText("")
+                self.ui.nomeUsuarioInput.setText("")
+                self.ui.titulacaoInput.setText("")
+            else:
+                self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Já existe um usuário cadastrado com esse código! Tente novamente!", QtWidgets.QMessageBox.Ok)
+                self.show()
         else:
             self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Por favor preencha todos os campos", QtWidgets.QMessageBox.Ok)
             print("Aviso sobre campos dado.")
@@ -266,15 +294,20 @@ class LivroWindow(QDialog):
 
     def cadastroLivro(self):
         if(len(self.ui.codLivroInput.text()) > 0 and len(self.ui.tituloInput.text()) > 0 and len(self.ui.anoInput.text()) > 0):
-            #Logica de cadastro de LIVRO vem aqui
-            self.__codLivro = self.ui.codLivroInput.text()
-            self.__titulo = self.ui.tituloInput.text()
-            self.__ano = self.ui.anoInput.text()
-            #Cadastrando - Pode-se colocar verificação de erros aqui
-            controlador.addLivro(self.__codLivro, self.__titulo, self.__ano)
-            print("Cadastro de Livro Feito!")
-            #Janela de aviso
-            self.popup = QtWidgets.QMessageBox.warning(self, 'Nice!', "Cadastro feito com sucesso!", QtWidgets.QMessageBox.Ok)
+            if(controlador.getLivroCodigo(self.ui.codLivroInput.text()) == None):
+                #Logica de cadastro de LIVRO vem aqui
+                self.__codLivro = self.ui.codLivroInput.text()
+                self.__titulo = self.ui.tituloInput.text()
+                self.__ano = self.ui.anoInput.text()
+                #Cadastrando - Pode-se colocar verificação de erros aqui
+                controlador.addLivro(self.__codLivro, self.__titulo, self.__ano)
+                print("Cadastro de Livro Feito!")
+                #Janela de aviso
+                self.popup = QtWidgets.QMessageBox.warning(self, 'Nice!', "Cadastro feito com sucesso!", QtWidgets.QMessageBox.Ok)
+            else:
+                self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Já existe um livro cadastrado com esse código! Tente novamente!", QtWidgets.QMessageBox.Ok)
+                self.show()
+
         else:
             self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Por favor preencha todos os campos", QtWidgets.QMessageBox.Ok)
             print("Aviso sobre campos dado.")
@@ -282,7 +315,6 @@ class LivroWindow(QDialog):
 
     def home(self):
         self.ui.botaoEnviar.clicked.connect(self.cadastroLivro) #referencia o metodo, nao chame-o
-        print("Aviso sobre campos dado.")
         self.show()
 
 ######################################################### RELATORIOS ####################################################################
@@ -494,13 +526,85 @@ class RelatorioLivros(QDialog):
         self.fillTable()
         self.show()
 
+
+class LivrosDisponiveis(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_LivrosDisponiveis()
+        self.ui.setupUi(self)
+        self.home()
+
+    def fillTable(self):
+        livros = controlador.getLivros()
+
+        for each in livros:
+            if(controlador.livroEstaEmprestado(each) == False):
+                rowPosition = self.ui.tabelaRelatorio.rowCount()
+                self.ui.tabelaRelatorio.insertRow(rowPosition)
+
+                item = QtWidgets.QTableWidgetItem()
+
+                codLivro = each.getCodLivro()
+                item.setData(0, codLivro)
+                self.ui.tabelaRelatorio.setItem(rowPosition, 0, item)
+
+                nomeLivro = each.getNome()
+                item = QtWidgets.QTableWidgetItem()
+                item.setData(0, nomeLivro)
+                self.ui.tabelaRelatorio.setItem(rowPosition, 1, item)
+
+                anoLivro = each.getAno()
+                item = QtWidgets.QTableWidgetItem()
+                item.setData(0, anoLivro)
+                self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
+
+    def home(self):
+        self.ui.tabelaRelatorio.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.fillTable()
+        self.show()
+
+class LivrosEmprestados(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_LivrosEmprestados()
+        self.ui.setupUi(self)
+        self.home()
+
+    def fillTable(self):
+        livros = controlador.getLivros()
+        for each in livros:
+            if(controlador.livroEstaEmprestado(each) == True):
+                rowPosition = self.ui.tabelaRelatorio.rowCount()
+                self.ui.tabelaRelatorio.insertRow(rowPosition)
+
+                item = QtWidgets.QTableWidgetItem()
+
+                codLivro = each.getCodLivro()
+                item.setData(0, codLivro)
+                self.ui.tabelaRelatorio.setItem(rowPosition, 0, item)
+
+                nomeLivro = each.getNome()
+                item = QtWidgets.QTableWidgetItem()
+                item.setData(0, nomeLivro)
+                self.ui.tabelaRelatorio.setItem(rowPosition, 1, item)
+
+                anoLivro = each.getAno()
+                item = QtWidgets.QTableWidgetItem()
+                item.setData(0, anoLivro)
+                self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
+
+    def home(self):
+        self.ui.tabelaRelatorio.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.fillTable()
+        self.show()
+
 #Roda nossa UI
 def run():
     app = QApplication(sys.argv)
     window = PrincipalWindow()
     sys.exit(app.exec_())
 
-#TESTES BEFORE RUN
+#TESTS BEFORE RUN
 controlador.addProfessor(144,"Danilo Eler", "Doutor")
 controlador.addAluno (145, "Marcelo Eduardo Rodrigues", "Ciencia da Computacao", "2016")
 controlador.addLivro(146, "Um curso de calculo vol 2", "2002")

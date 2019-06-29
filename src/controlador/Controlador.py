@@ -59,6 +59,12 @@ class Controlador:
                 return usuario
         return None
 
+    def getUsuarioCodigo(self, codigo):
+        usuarios = self.getUsuarios()
+        for usuario in usuarios:
+            if(str.lower(codigo) == str.lower(usuario.getCodUsuario())):
+                return usuario
+        return None
     def getAlunos(self):
         alunos = []
         usuarios = self.getUsuarios()
@@ -85,6 +91,14 @@ class Controlador:
             if(str.lower(titulo) == str.lower(livro.getNome())):
                 return livro
         return None
+
+    def getLivroCodigo(self, codigo):
+        livros = self.getLivros()
+        for livro in livros:
+            if(str.lower(codigo) == str.lower(livro.getCodLivro())):
+                return livro
+        return None
+
 
     def getEmprestimos(self):
         return self.__biblio.getEmprestimos()
