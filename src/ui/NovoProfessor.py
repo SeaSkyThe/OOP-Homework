@@ -47,6 +47,20 @@ class Ui_CadastroProfessor(object):
         self.retranslateUi(CadastroProfessor)
         QtCore.QMetaObject.connectSlotsByName(CadastroProfessor)
 
+        #Controle de Inputs
+        #Nome
+        regex=QtCore.QRegExp("[a-z-A-Z ]+")
+        validator = QtGui.QRegExpValidator(regex)
+        self.nomeUsuarioInput.setValidator(validator)
+        #Cod Usuario
+        regex=QtCore.QRegExp("[0-9]+")
+        validator = QtGui.QRegExpValidator(regex)
+        self.codUsuarioInput.setValidator(validator)
+        #Titulacao
+        regex=QtCore.QRegExp("[a-z-A-Z ]+")
+        validator = QtGui.QRegExpValidator(regex)
+        self.titulacaoInput.setValidator(validator)
+
     def retranslateUi(self, CadastroProfessor):
         _translate = QtCore.QCoreApplication.translate
         CadastroProfessor.setWindowTitle(_translate("CadastroProfessor", "Cadastro de Professor"))

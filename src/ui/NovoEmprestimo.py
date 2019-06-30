@@ -72,6 +72,12 @@ class Ui_NovoEmprestimo(object):
         self.retranslateUi(NovoEmprestimo)
         QtCore.QMetaObject.connectSlotsByName(NovoEmprestimo)
 
+        #Controle de Inputs
+        #Cod Emprestimo
+        regex=QtCore.QRegExp("[0-9]+")
+        validator = QtGui.QRegExpValidator(regex)
+        self.codEmprestimoInput.setValidator(validator)
+
     def retranslateUi(self, NovoEmprestimo):
         _translate = QtCore.QCoreApplication.translate
         NovoEmprestimo.setWindowTitle(_translate("NovoEmprestimo", "NovoEmprestimo"))

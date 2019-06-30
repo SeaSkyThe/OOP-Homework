@@ -54,6 +54,12 @@ class Ui_LivrosNaoDevolvidosUsuario(object):
         self.retranslateUi(LivrosNaoDevolvidosUsuario)
         QtCore.QMetaObject.connectSlotsByName(LivrosNaoDevolvidosUsuario)
 
+        #Controle de inputs
+        #Cod Usuario
+        regex=QtCore.QRegExp("[0-9]+")
+        validator = QtGui.QRegExpValidator(regex)
+        self.codUsuarioInput.setValidator(validator)
+
     def retranslateUi(self, LivrosNaoDevolvidosUsuario):
         _translate = QtCore.QCoreApplication.translate
         LivrosNaoDevolvidosUsuario.setWindowTitle(_translate("LivrosNaoDevolvidosUsuario", "Livros não devolvidos por um usuário"))
@@ -68,4 +74,3 @@ class Ui_LivrosNaoDevolvidosUsuario(object):
         item.setText(_translate("LivrosNaoDevolvidosUsuario", "Atrasado"))
         self.pesquisarButton.setText(_translate("LivrosNaoDevolvidosUsuario", "Pesquisar"))
         self.codUsuarioText.setText(_translate("LivrosNaoDevolvidosUsuario", "Código do Usuário"))
-

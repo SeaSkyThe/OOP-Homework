@@ -18,6 +18,7 @@ from UsuariosAtraso import *
 from LivrosAtrasados import *
 from LivrosNaoDevolvidosUsuario import *
 from HistoricoUsuario import *
+
 del sys.path[0]
 sys.path.insert(0, '..')
 from controlador.Controlador import *
@@ -182,8 +183,18 @@ class EmprestimoWindow(QDialog):
         #Logica para exibição na tabela
         nomeLivro = self.ui.selectBook.currentText()
         livro = controlador.getLivroNome(nomeLivro)
-        if(livro != None and livro.estaEmprestado() == False):
-            rowPosition = self.ui.tabelaLivrosEmprestimo.rowCount()
+        rowPosition = self.ui.tabelaLivrosEmprestimo.rowCount()
+        rowPosAux = rowPosition
+        flag = 1
+
+        while rowPosAux > 0:
+            content = self.ui.tabelaLivrosEmprestimo.item(rowPosition - 1, 0).text()
+            if(int(content) == int(controlador.getCodLivro(livro))):
+                flag = 0
+            rowPosAux = rowPosAux - 1
+
+        if(livro != None and livro.estaEmprestado() == False and flag == 1):
+
             self.ui.tabelaLivrosEmprestimo.insertRow(rowPosition)
 
             item = QtWidgets.QTableWidgetItem()
@@ -200,11 +211,13 @@ class EmprestimoWindow(QDialog):
             item = QtWidgets.QTableWidgetItem()
             item.setData(0, anoLivro)
             self.ui.tabelaLivrosEmprestimo.setItem(rowPosition, 2, item)
+
+            self.livrosEmprestar.append(livro)
         else:
-            self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Esse livro está emprestado", QtWidgets.QMessageBox.Ok)
+            self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Esse livro ja está na lista", QtWidgets.QMessageBox.Ok)
             self.show()
 
-        self.livrosEmprestar.append(livro)
+
         self.ui.tabelaLivrosEmprestimo.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
 
     def onFazerEmprestimoClicked(self):
@@ -741,6 +754,7 @@ class LivrosNaoDevolvidos(QDialog):
             self.ui.tabelaRelatorio.setItem(rowPosition, 3, item)
 
     def on_Pesquisar_clicked(self):
+        self.ui.tabelaRelatorio.setRowCount(0)
         codUsuario = self.ui.codUsuarioInput.text()
         if(len(codUsuario) > 0):
             usuario = controlador.getUsuarioCodigo(codUsuario)
@@ -792,6 +806,7 @@ class HistoricoUsuario(QDialog):
             self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
 
     def on_Pesquisar_clicked(self):
+        self.ui.tabelaRelatorio.setRowCount(0)
         codUsuario = self.ui.codUsuarioInput.text()
         if(len(codUsuario) > 0):
             usuario = controlador.getUsuarioCodigo(codUsuario)

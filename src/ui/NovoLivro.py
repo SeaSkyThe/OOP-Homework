@@ -53,6 +53,20 @@ class Ui_CadastroLivro(object):
         self.retranslateUi(CadastroLivro)
         QtCore.QMetaObject.connectSlotsByName(CadastroLivro)
 
+        #Controle de Inputs
+        #Titulo
+        regex=QtCore.QRegExp("[a-z-A-Z-0-9_. ]+")
+        validator = QtGui.QRegExpValidator(regex)
+        self.tituloInput.setValidator(validator)
+        #Ano
+        regex=QtCore.QRegExp("[0-9]+")
+        validator = QtGui.QRegExpValidator(regex)
+        self.anoInput.setValidator(validator)
+        #Cod Livro
+        regex=QtCore.QRegExp("[0-9]+")
+        validator = QtGui.QRegExpValidator(regex)
+        self.codLivroInput.setValidator(validator)
+
     def retranslateUi(self, CadastroLivro):
         _translate = QtCore.QCoreApplication.translate
         CadastroLivro.setWindowTitle(_translate("CadastroLivro", "Cadastro de Livro"))

@@ -52,6 +52,12 @@ class Ui_HistoricoUsuario(object):
         self.retranslateUi(HistoricoUsuario)
         QtCore.QMetaObject.connectSlotsByName(HistoricoUsuario)
 
+        #Controle de inputs
+        #Cod Usuario
+        regex=QtCore.QRegExp("[0-9]+")
+        validator = QtGui.QRegExpValidator(regex)
+        self.codUsuarioInput.setValidator(validator)
+        
     def retranslateUi(self, HistoricoUsuario):
         _translate = QtCore.QCoreApplication.translate
         HistoricoUsuario.setWindowTitle(_translate("HistoricoUsuario", "Histórico de um usuário"))
@@ -64,4 +70,3 @@ class Ui_HistoricoUsuario(object):
         item.setText(_translate("HistoricoUsuario", "Ano"))
         self.pesquisarButton.setText(_translate("HistoricoUsuario", "Pesquisar"))
         self.codUsuarioText.setText(_translate("HistoricoUsuario", "Código do Usuário:"))
-

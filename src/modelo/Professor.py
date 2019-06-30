@@ -9,7 +9,7 @@ class Professor(Usuario):
     def __init__(self, codUsuario, nome, diasEmprestimo, titulacao):
         super().__init__(codUsuario, nome, diasEmprestimo)
         self.__titulacao = titulacao
-        
+
 
     def getTitulacao(self):
         return self.__titulacao

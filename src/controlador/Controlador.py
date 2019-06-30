@@ -101,6 +101,8 @@ class Controlador:
                 return livro
         return None
 
+    def getCodLivro(self, livro):
+        return livro.getCodLivro()
     def getLivrosEmprestadosUsuario(self, codigo):
         emprestimos = self.getEmprestimos()
         emprestimosUsuario = []
@@ -110,9 +112,7 @@ class Controlador:
 
         livrosUsuario = []
         for each in emprestimosUsuario:
-            print(each)
             itens = each.getItens()
-            print(itens)
             for item in itens:
                 codLivro = item.getCodLivro()
                 livro = self.getLivroCodigo(codLivro)
