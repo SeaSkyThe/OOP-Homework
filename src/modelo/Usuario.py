@@ -6,6 +6,7 @@ class Usuario:
         self.__codUsuario = codUsuario
         self.__nome = nome
         self.__diasEmprestimo = diasEmprestimo
+        self.__historicoLivros = []
 
     def getDiasEmprestimo(self):
         return int(self.__diasEmprestimo)
@@ -25,6 +26,12 @@ class Usuario:
     def setNome(self, nome):
         self.__nome = nome
 
+    def addItensHistorico(self, livros):
+        for livro in livros:
+            self.__historicoLivros.append(livro)
+
+    def getHistorico(self):
+        return self.__historicoLivros
 
 
 #ÁREA DE TESTES

@@ -44,9 +44,10 @@ class Controlador:
 
     def addItensEmprestimo(self, codEmprestimo, livros): #recebe uma lista de livros, transforma em lista de itens e adiciona
         emprestimo = self.getEmprestimoCodigo(codEmprestimo)
-        emprestimo.setItens = self.criarListaItens(codEmprestimo, livros)
-
-
+        codUsuario = emprestimo.getCodUsuario()
+        usuario = self.getUsuarioCodigo(codUsuario)
+        usuario.addItensHistorico(livros)
+        emprestimo.setItens(self.criarListaItens(codEmprestimo, livros))
 
     #Retornar LISTAS
     def getUsuarios(self):
@@ -62,9 +63,10 @@ class Controlador:
     def getUsuarioCodigo(self, codigo):
         usuarios = self.getUsuarios()
         for usuario in usuarios:
-            if(str.lower(codigo) == str.lower(usuario.getCodUsuario())):
+            if(int(codigo) == int(usuario.getCodUsuario())):
                 return usuario
         return None
+
     def getAlunos(self):
         alunos = []
         usuarios = self.getUsuarios()
@@ -95,10 +97,28 @@ class Controlador:
     def getLivroCodigo(self, codigo):
         livros = self.getLivros()
         for livro in livros:
-            if(str.lower(codigo) == str.lower(livro.getCodLivro())):
+            if(int(codigo) == int(livro.getCodLivro())):
                 return livro
         return None
 
+    def getLivrosEmprestadosUsuario(self, codigo):
+        emprestimos = self.getEmprestimos()
+        emprestimosUsuario = []
+        for emprestimo in emprestimos:
+            if(int(emprestimo.getCodUsuario()) == int(codigo)):
+                emprestimosUsuario.append(emprestimo)
+
+        livrosUsuario = []
+        for each in emprestimosUsuario:
+            print(each)
+            itens = each.getItens()
+            print(itens)
+            for item in itens:
+                codLivro = item.getCodLivro()
+                livro = self.getLivroCodigo(codLivro)
+                livrosUsuario.append(livro)
+
+        return livrosUsuario
 
     def getEmprestimos(self):
         return self.__biblio.getEmprestimos()
@@ -138,10 +158,14 @@ class Controlador:
                 if(codigoUsuario == codigoUsuarioEmprestimo):
                     itens = emprestimo.getItens()
                     for item in itens:
-                        if(emprestimo.getDataDevolucao() > datetime.datetime.now()):
+                        if(emprestimo.getDataDevolucao() < datetime.date.today()):
                             return True
         return False
 
+    def UsuarioTemHistorico(self, usuario):
+        if(len(usuario.getHistorico()) > 0):
+            return True
+        return False
 
     def livroEstaEmprestado(self, livro):
         if(livro.estaEmprestado() == True):
@@ -159,7 +183,7 @@ class Controlador:
                 for item in itens:
                     codigoLivroEmprestimo = item.getCodLivro()
                     if(codigoLivro == codigoLivroEmprestimo):
-                        if(emprestimo.getDataDevolucao() > datetime.datetime.now()):
+                        if(emprestimo.getDataDevolucao() < datetime.date.today()):
                             return True
         return False
 

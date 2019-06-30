@@ -33,7 +33,6 @@ class Emprestimo:
     def getCodUsuario(self):
         return self.__codUsuario
 
-
     def setCodUsuario(self, codUsuario):
         self.__codUsuario = codUsuario
 

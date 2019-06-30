@@ -14,15 +14,16 @@ from RelatorioProfessores import *
 from RelatorioLivros import *
 from LivrosDisponiveis import *
 from LivrosEmprestados import *
-
+from UsuariosAtraso import *
+from LivrosAtrasados import *
+from LivrosNaoDevolvidosUsuario import *
+from HistoricoUsuario import *
 del sys.path[0]
 sys.path.insert(0, '..')
 from controlador.Controlador import *
-
-
-
+#################################################################################################################################################
 controlador = Controlador()
-
+#Os métodos "fillTable" das classes(que representam janelas) tem a logica utilizada para pegar os usuários/livros correspondentes àquele relatório
 class PrincipalWindow(QMainWindow):  #Main window
     def __init__(self):
         super().__init__()
@@ -83,6 +84,22 @@ class PrincipalWindow(QMainWindow):  #Main window
         self.dialog = LivrosEmprestados()
         print("Janela de Relatorio de Livros Emprestados aberta!")
 
+    def on_LivrosNaoDevolvidos_clicked(self):
+        self.dialog = LivrosNaoDevolvidos()
+        print("Janela de Relatorio de Livros não Devolvidos aberta!")
+
+    def on_HistoricoUsuario_clicked(self):
+        self.dialog = HistoricoUsuario()
+        print("Janela de Relatorio de Histórico aberta!")
+
+    def on_UsuariosComAtraso_clicked(self):
+        self.dialog = UsuariosAtraso()
+        print("Janela de Relatorio de Usuarios com atraso aberta!")
+
+    def on_LivrosAtrasados_clicked(self):
+        self.dialog = LivrosAtrasados()
+        print("Janela de Relatorio de Livros com atraso aberta!")
+
     def on_SalvarDados_clicked(self):
         controlador.saveAll()
         print("Chamando funcao de salvamento")
@@ -120,7 +137,10 @@ class PrincipalWindow(QMainWindow):  #Main window
         self.ui.actionTodos_os_livros.triggered.connect(self.on_TodosLivros_clicked)
         self.ui.actionLivros_disponiveis.triggered.connect(self.on_LivrosDisponiveis_clicked)
         self.ui.actionLivros_emprestados.triggered.connect(self.on_LivrosEmprestados_clicked)
-
+        self.ui.actionUsuarios_com_atrasos.triggered.connect(self.on_UsuariosComAtraso_clicked)
+        self.ui.actionAtrasos.triggered.connect(self.on_LivrosAtrasados_clicked)
+        self.ui.actionEmprestimos_de_um_usuario.triggered.connect(self.on_LivrosNaoDevolvidos_clicked)
+        self.ui.actionHistorico_de_usuario.triggered.connect(self.on_HistoricoUsuario_clicked)
         ##Menu de novo Emprestimo
         self.ui.buttonEmprestimo.clicked.connect(self.on_NovoEmprestimo_clicked)
         ## SALVAMENTO E CARREGAMENTO DE DADOS
@@ -132,7 +152,11 @@ class PrincipalWindow(QMainWindow):  #Main window
         self.show()
 
 
-########################################################## EMPRÉSTIMO ####################################################################
+#####################################################################################################################################################
+#####################################################################################################################################################
+################################################################## EMPRÉSTIMO #######################################################################
+#####################################################################################################################################################
+#####################################################################################################################################################
 class EmprestimoWindow(QDialog):
     def __init__(self):
         super().__init__()
@@ -202,7 +226,11 @@ class EmprestimoWindow(QDialog):
         self.ui.finalizarEmprestimo.clicked.connect(self.onFazerEmprestimoClicked)
         self.show()
 
-######################################################### CADASTROS ####################################################################
+#####################################################################################################################################################
+#####################################################################################################################################################
+################################################################## CADASTROS ########################################################################
+#####################################################################################################################################################
+#####################################################################################################################################################
 #Janela de cadastro de Aluno
 class AlunoWindow(QDialog):
     def __init__(self):
@@ -317,7 +345,12 @@ class LivroWindow(QDialog):
         self.ui.botaoEnviar.clicked.connect(self.cadastroLivro) #referencia o metodo, nao chame-o
         self.show()
 
-######################################################### RELATORIOS ####################################################################
+#####################################################################################################################################################
+#####################################################################################################################################################
+################################################################## RELATORIOS #######################################################################
+#####################################################################################################################################################
+#####################################################################################################################################################
+
 #Janela de Relatorio de Todos os Usuarios
 class RelatorioUsuarios(QDialog):
     def __init__(self):
@@ -526,7 +559,7 @@ class RelatorioLivros(QDialog):
         self.fillTable()
         self.show()
 
-
+#Janela de relatório dos livros disponiveis
 class LivrosDisponiveis(QDialog):
     def __init__(self):
         super().__init__()
@@ -563,6 +596,7 @@ class LivrosDisponiveis(QDialog):
         self.fillTable()
         self.show()
 
+#Janela de relatório dos livros que estão emprestados
 class LivrosEmprestados(QDialog):
     def __init__(self):
         super().__init__()
@@ -598,6 +632,184 @@ class LivrosEmprestados(QDialog):
         self.fillTable()
         self.show()
 
+
+#Janela de relatório dos usuários com atraso
+class UsuariosAtraso(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_UsuariosAtraso()
+        self.ui.setupUi(self)
+        self.home()
+
+    def fillTable(self):
+        usuarios = controlador.getUsuarios()
+        for each in usuarios:
+            if(controlador.UsuarioComAtraso(each) == True):
+                rowPosition = self.ui.tabelaRelatorio.rowCount()
+                self.ui.tabelaRelatorio.insertRow(rowPosition)
+
+                item = QtWidgets.QTableWidgetItem()
+
+                codUsuario = each.getCodUsuario()
+                item.setData(0, codLivro)
+                self.ui.tabelaRelatorio.setItem(rowPosition, 0, item)
+
+                nomeUsuario = each.getNome()
+                item = QtWidgets.QTableWidgetItem()
+                item.setData(0, nomeLivro)
+                self.ui.tabelaRelatorio.setItem(rowPosition, 1, item)
+
+    def home(self):
+        self.ui.tabelaRelatorio.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.fillTable()
+        self.show()
+
+#Janela de Relatório dos livros atrasados
+class LivrosAtrasados(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_LivrosAtrasados()
+        self.ui.setupUi(self)
+        self.home()
+
+    def fillTable(self):
+        livros = controlador.getLivros()
+        for each in livros:
+            if(controlador.livroEstaAtrasado(each) == True):
+                rowPosition = self.ui.tabelaRelatorio.rowCount()
+                self.ui.tabelaRelatorio.insertRow(rowPosition)
+
+                item = QtWidgets.QTableWidgetItem()
+
+                codLivro = each.getCodLivro()
+                item.setData(0, codLivro)
+                self.ui.tabelaRelatorio.setItem(rowPosition, 0, item)
+
+                nomeLivro = each.getNome()
+                item = QtWidgets.QTableWidgetItem()
+                item.setData(0, nomeLivro)
+                self.ui.tabelaRelatorio.setItem(rowPosition, 1, item)
+
+                anoLivro = each.getAno()
+                item = QtWidgets.QTableWidgetItem()
+                item.setData(0, anoLivro)
+                self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
+
+
+    def home(self):
+        self.ui.tabelaRelatorio.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.fillTable()
+        self.show()
+
+#Janela de Relatório dos livros não devolvidos
+class LivrosNaoDevolvidos(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_LivrosNaoDevolvidosUsuario()
+        self.ui.setupUi(self)
+        self.home()
+
+    def fillTable(self):
+        codUsuario = self.ui.codUsuarioInput.text()
+        livrosUsuario = controlador.getLivrosEmprestadosUsuario(codUsuario)
+        for each in livrosUsuario:
+            rowPosition = self.ui.tabelaRelatorio.rowCount()
+            self.ui.tabelaRelatorio.insertRow(rowPosition)
+
+            item = QtWidgets.QTableWidgetItem()
+
+            codLivro = each.getCodLivro()
+            item.setData(0, codLivro)
+            self.ui.tabelaRelatorio.setItem(rowPosition, 0, item)
+
+            nomeLivro = each.getNome()
+            item = QtWidgets.QTableWidgetItem()
+            item.setData(0, nomeLivro)
+            self.ui.tabelaRelatorio.setItem(rowPosition, 1, item)
+
+            anoLivro = each.getAno()
+            item = QtWidgets.QTableWidgetItem()
+            item.setData(0, anoLivro)
+            self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
+
+            item = QtWidgets.QTableWidgetItem()
+            if(controlador.livroEstaAtrasado(each) == True):
+                item.setData(0, "Sim")
+            else:
+                item.setData(0, "Não")
+
+            self.ui.tabelaRelatorio.setItem(rowPosition, 3, item)
+
+    def on_Pesquisar_clicked(self):
+        codUsuario = self.ui.codUsuarioInput.text()
+        if(len(codUsuario) > 0):
+            usuario = controlador.getUsuarioCodigo(codUsuario)
+            if(usuario != None and controlador.UsuarioComEmprestimo(usuario) == True):
+                self.fillTable()
+            else:
+                self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Não existe um usuário com esse código, ou ele não tem empréstimos! Tente novamente!", QtWidgets.QMessageBox.Ok)
+                self.show()
+
+        else:
+            self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Por favor, preencha o campo de código de usuário! Tente novamente!", QtWidgets.QMessageBox.Ok)
+            self.show()
+
+
+
+    def home(self):
+        self.ui.tabelaRelatorio.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.ui.pesquisarButton.clicked.connect(self.on_Pesquisar_clicked)
+        self.show()
+
+
+class HistoricoUsuario(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_HistoricoUsuario()
+        self.ui.setupUi(self)
+        self.home()
+
+    def fillTable(self, usuario):
+        historico = usuario.getHistorico()
+        for each in historico:
+            rowPosition = self.ui.tabelaRelatorio.rowCount()
+            self.ui.tabelaRelatorio.insertRow(rowPosition)
+
+            item = QtWidgets.QTableWidgetItem()
+
+            codLivro = each.getCodLivro()
+            item.setData(0, codLivro)
+            self.ui.tabelaRelatorio.setItem(rowPosition, 0, item)
+
+            nomeLivro = each.getNome()
+            item = QtWidgets.QTableWidgetItem()
+            item.setData(0, nomeLivro)
+            self.ui.tabelaRelatorio.setItem(rowPosition, 1, item)
+
+            anoLivro = each.getAno()
+            item = QtWidgets.QTableWidgetItem()
+            item.setData(0, anoLivro)
+            self.ui.tabelaRelatorio.setItem(rowPosition, 2, item)
+
+    def on_Pesquisar_clicked(self):
+        codUsuario = self.ui.codUsuarioInput.text()
+        if(len(codUsuario) > 0):
+            usuario = controlador.getUsuarioCodigo(codUsuario)
+            if(usuario != None and controlador.UsuarioTemHistorico(usuario) == True):
+                self.fillTable(usuario)
+            else:
+                self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Não existe um usuário com esse código, ou ele nunca fez empréstimos! Tente novamente!", QtWidgets.QMessageBox.Ok)
+                self.show()
+
+        else:
+            self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Por favor, preencha o campo de código de usuário! Tente novamente!", QtWidgets.QMessageBox.Ok)
+            self.show()
+
+    def home(self):
+        self.ui.tabelaRelatorio.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.ui.pesquisarButton.clicked.connect(self.on_Pesquisar_clicked)
+        self.show()
+
 #Roda nossa UI
 def run():
     app = QApplication(sys.argv)
@@ -605,7 +817,8 @@ def run():
     sys.exit(app.exec_())
 
 #TESTS BEFORE RUN
-controlador.addProfessor(144,"Danilo Eler", "Doutor")
-controlador.addAluno (145, "Marcelo Eduardo Rodrigues", "Ciencia da Computacao", "2016")
-controlador.addLivro(146, "Um curso de calculo vol 2", "2002")
+controlador.addProfessor(144, "Danilo Eler", "Doutor")
+controlador.addAluno (145, "Marcelo Eduardo Rodrigues", "Ciencia da Computacao", "2018")
+controlador.addAluno (248, "Álvaro Sato", "Ciencia da Computacao", "2018")
+controlador.addLivro(146, "Um Curso de Calculo Vol. 2", "2002")
 run()
