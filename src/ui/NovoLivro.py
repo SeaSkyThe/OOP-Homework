@@ -55,7 +55,7 @@ class Ui_CadastroLivro(object):
 
         #Controle de Inputs
         #Titulo
-        regex=QtCore.QRegExp("[a-z-A-Z-0-9_. ]+")
+        regex=QtCore.QRegExp("[a-z-A-Z-0-9_. á-ú-Á-Ú]+")
         validator = QtGui.QRegExpValidator(regex)
         self.tituloInput.setValidator(validator)
         #Ano

@@ -832,8 +832,8 @@ def run():
     sys.exit(app.exec_())
 
 #TESTS BEFORE RUN
-controlador.addProfessor(144, "Danilo Eler", "Doutor")
-controlador.addAluno (145, "Marcelo Eduardo Rodrigues", "Ciencia da Computacao", "2018")
-controlador.addAluno (248, "Álvaro Sato", "Ciencia da Computacao", "2018")
-controlador.addLivro(146, "Um Curso de Calculo Vol. 2", "2002")
+# controlador.addProfessor(144, "Danilo Eler", "Doutor")
+# controlador.addAluno (145, "Marcelo Eduardo Rodrigues", "Ciencia da Computacao", "2018")
+# controlador.addAluno (248, "Álvaro Sato", "Ciencia da Computacao", "2018")
+# controlador.addLivro(146, "Um Curso de Calculo Vol. 2", "2002")
 run()

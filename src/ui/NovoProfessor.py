@@ -49,7 +49,7 @@ class Ui_CadastroProfessor(object):
 
         #Controle de Inputs
         #Nome
-        regex=QtCore.QRegExp("[a-z-A-Z ]+")
+        regex=QtCore.QRegExp("[a-z-A-Z á-ú-Á-Ú]+")
         validator = QtGui.QRegExpValidator(regex)
         self.nomeUsuarioInput.setValidator(validator)
         #Cod Usuario
