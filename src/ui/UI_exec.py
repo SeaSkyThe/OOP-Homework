@@ -214,7 +214,7 @@ class EmprestimoWindow(QDialog):
 
             self.livrosEmprestar.append(livro)
         else:
-            self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Esse livro ja está na lista", QtWidgets.QMessageBox.Ok)
+            self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Esse livro ja está na lista ou ja foi emprestado!", QtWidgets.QMessageBox.Ok)
             self.show()
 
 
@@ -227,6 +227,7 @@ class EmprestimoWindow(QDialog):
             controlador.addEmprestimo(codEmprestimo, usuario)
             controlador.addItensEmprestimo(codEmprestimo, self.livrosEmprestar)
             self.popup = QtWidgets.QMessageBox.warning(self, 'Nice!', "Empréstimo realizado com sucesso!", QtWidgets.QMessageBox.Ok)
+            self.ui.tabelaLivrosEmprestimo.setRowCount(0)
             self.popup
         else:
             self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Por favor, verifique se preencheu o campo de codigo de empréstimo e selecionou ao menos um livro!", QtWidgets.QMessageBox.Ok)
