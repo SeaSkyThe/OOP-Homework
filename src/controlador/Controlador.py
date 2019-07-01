@@ -87,6 +87,7 @@ class Controlador:
     def getLivros(self):
         return self.__biblio.getLivros()
 
+    #Nao foi possivel utilizar polimorfismo pois é necessaria a conversão de tipos
     def getLivroNome(self, titulo):
         livros = self.getLivros()
         for livro in livros:
@@ -103,7 +104,7 @@ class Controlador:
 
     def getCodLivro(self, livro):
         return livro.getCodLivro()
-        
+
     def getLivrosEmprestadosUsuario(self, codigo):
         emprestimos = self.getEmprestimos()
         emprestimosUsuario = []
