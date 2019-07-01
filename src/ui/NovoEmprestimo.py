@@ -92,5 +92,5 @@ class Ui_NovoEmprestimo(object):
         self.selectBookText.setText(_translate("NovoEmprestimo", "Selecione um Livro:"))
         self.addBook.setText(_translate("NovoEmprestimo", "Adicionar livro"))
         self.finalizarEmprestimo.setText(_translate("NovoEmprestimo", "Fazer empréstimo"))
-        self.removeBook.setText(_translate("NovoEmprestimo", "Remover livro"))
+        # self.removeBook.setText(_translate("NovoEmprestimo", "Remover livro"))
         self.codEmprestimoText.setText(_translate("NovoEmprestimo", "Codigo de Emprestimo:"))
