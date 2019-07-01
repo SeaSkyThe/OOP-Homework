@@ -229,6 +229,7 @@ class EmprestimoWindow(QDialog):
             self.popup = QtWidgets.QMessageBox.warning(self, 'Nice!', "Empréstimo realizado com sucesso!", QtWidgets.QMessageBox.Ok)
             self.ui.tabelaLivrosEmprestimo.setRowCount(0)
             self.popup
+            self.close()
         else:
             self.popup = QtWidgets.QMessageBox.warning(self, 'Oops!', "Por favor, verifique se preencheu o campo de codigo de empréstimo e selecionou ao menos um livro!", QtWidgets.QMessageBox.Ok)
             self.show()

@@ -103,6 +103,7 @@ class Controlador:
 
     def getCodLivro(self, livro):
         return livro.getCodLivro()
+        
     def getLivrosEmprestadosUsuario(self, codigo):
         emprestimos = self.getEmprestimos()
         emprestimosUsuario = []
