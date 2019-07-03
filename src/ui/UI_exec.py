@@ -666,12 +666,12 @@ class UsuariosAtraso(QDialog):
                 item = QtWidgets.QTableWidgetItem()
 
                 codUsuario = each.getCodUsuario()
-                item.setData(0, codLivro)
+                item.setData(0, codUsuario)
                 self.ui.tabelaRelatorio.setItem(rowPosition, 0, item)
 
                 nomeUsuario = each.getNome()
                 item = QtWidgets.QTableWidgetItem()
-                item.setData(0, nomeLivro)
+                item.setData(0, nomeUsuario)
                 self.ui.tabelaRelatorio.setItem(rowPosition, 1, item)
 
     def home(self):
